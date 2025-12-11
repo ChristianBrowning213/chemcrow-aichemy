@@ -91,7 +91,7 @@ class ListCrystalCIFsTool(BaseTool):
 def build_clean_chemcrow():
     # LLM used *inside* the tools (same as ChemCrow uses internally)
     tools_llm = ChatOpenAI(
-        model_name=os.environ.get("CHEMCROW_TOOLS_MODEL", "gpt-4o-mini"),
+        model_name=os.environ.get("CHEMCROW_TOOLS_MODEL", "gpt-4.1-mini"),
         temperature=0,
     )
 

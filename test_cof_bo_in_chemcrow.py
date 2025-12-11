@@ -1,21 +1,23 @@
-# test_cof_bo_props_only_in_chemcrow.py
+# test_cof_bo_inspect_clean_in_chemcrow.py
 """
 Smoke test for InspectCSVDataset + COFMultiObjectiveBO *inside* the ChemCrow agent,
-using ONLY the property CSV as both "descriptor" and "property" source.
-
-For now we IGNORE the true descriptor CSV and just use:
-
-  C:\\Users\\brown\\Downloads\\COF_crystals\\gcmc_calculations.csv
-
-as:
-  - descriptor_csv
-  - property_csvs[0]
+including basic data cleaning to reconcile different ID columns.
 
 Assumes:
   - clean_chemcrow_minimal.py defines build_clean_chemcrow.
   - build_clean_chemcrow() registers:
         - InspectCSVDataset
         - COFMultiObjectiveBO
+  - Dataset paths (Windows):
+
+      CIF directory:
+        C:\\Users\\brown\\Downloads\\COF_crystals\\crystals
+
+      Descriptor CSV:
+        C:\\Users\\brown\\Downloads\\COF_crystals\\cof_descriptors.csv
+
+      Property CSV:
+        C:\\Users\\brown\\Downloads\\COF_crystals\\gcmc_calculations.csv
 """
 
 import os
@@ -23,9 +25,11 @@ import os
 from clean_chemcrow_minimal import build_clean_chemcrow
 
 
-# --- COF dataset paths (Windows) ------------------------------------------- #
+# --- COF BO dataset paths (Windows) ---------------------------------------- #
 
 COF_CIF_DIR = r"C:\Users\brown\Downloads\COF_crystals\crystals"
+COF_DESCRIPTOR_CSV = r"C:\Users\brown\Downloads\COF_crystals\cof_descriptors.csv"
+COF_DESCRIPTOR_CSV_CLEAN = r"C:\Users\brown\Downloads\COF_crystals\cof_descriptors_with_xtal.csv"
 COF_PROPERTY_CSV = r"C:\Users\brown\Downloads\COF_crystals\gcmc_calculations.csv"
 
 
@@ -40,15 +44,14 @@ def main() -> None:
 
     # Windows JSON escaping for paths
     cof_cif_dir_json = COF_CIF_DIR.replace("\\", "\\\\")
+    cof_desc_csv_json = COF_DESCRIPTOR_CSV.replace("\\", "\\\\")
+    cof_desc_clean_json = COF_DESCRIPTOR_CSV_CLEAN.replace("\\", "\\\\")
     cof_prop_csv_json = COF_PROPERTY_CSV.replace("\\", "\\\\")
-
-    # For this smoke test, we use the property CSV as BOTH descriptor and property.
-    descriptor_csv_json = cof_prop_csv_json
 
     # JSON payload for InspectCSVDataset
     inspect_config_json = (
         "{"
-        f"\"descriptor_csv\": \"{descriptor_csv_json}\", "
+        f"\"descriptor_csv\": \"{cof_desc_csv_json}\", "
         f"\"property_csvs\": [\"{cof_prop_csv_json}\"], "
         f"\"cif_dir\": \"{cof_cif_dir_json}\""
         "}"
@@ -68,24 +71,25 @@ You are wired into a ChemCrow environment with the following tools available
   - InspectCSVDataset
   - COFMultiObjectiveBO
 
-For THIS SMOKE TEST, we deliberately ignore the separate descriptor CSV.
-Instead, we use the SAME file
+Your job is to:
 
-  C:\\Users\\brown\\Downloads\\COF_crystals\\gcmc_calculations.csv
+  (A) verify that the CSV inspection works and understand how the tables relate,
+  (B) perform basic data cleaning to reconcile different ID columns, and
+  (C) run multi-objective Bayesian optimisation on the COF dataset.
 
-as BOTH:
-  - descriptor_csv
-  - property_csvs[0]
-
-The COF dataset lives at:
+The COF dataset for Bayesian optimisation lives at:
 
   COF CIF directory:
     {COF_CIF_DIR}
 
-  Property CSV (also used as descriptor CSV in this test):
+  COF descriptor CSV:
+    {COF_DESCRIPTOR_CSV}
+
+  COF property CSV:
     {COF_PROPERTY_CSV}
 
-We want to MAXIMISE two objectives jointly:
+We want to MAXIMISE two objectives jointly (with **selectivity** as the primary
+design goal, but still considering uptake):
 
   1) "⟨N⟩ (mmol/g)"      – uptake per gram
   2) "selectivity Xe/Kr" – Xe/Kr separation performance
@@ -97,62 +101,85 @@ Follow these steps, using tool calls explicitly:
 
    {inspect_config_json}
 
-2) From the InspectCSVDataset output, answer briefly:
+2) Carefully read the InspectCSVDataset output and, based on it, answer:
 
-   - How many rows and columns the CSV has.
-   - Which column looks like a good ID column (for this file, this is expected
-     to be 'xtal').
-   - Confirm that the target_properties "⟨N⟩ (mmol/g)" and "selectivity Xe/Kr"
-     exist and are numeric.
+   - Which ID-like columns exist in the DESCRIPTOR CSV (e.g. 'crystal_name')?
+   - Which ID-like columns exist in the PROPERTY CSV (e.g. 'xtal')?
+   - Explain briefly why the dataset currently cannot be merged on a single
+     shared column name.
 
-3) Using that information, construct a JSON config for **COFMultiObjectiveBO**
-   that:
+3) Perform **data cleaning and ID reconciliation** using **Python_REPL**:
 
-   - Uses this SAME path for descriptor and property:
+   - Use pandas to:
+       * load the descriptor CSV from "{COF_DESCRIPTOR_CSV}",
+       * check that 'crystal_name' is present and inspect its uniqueness,
+       * if there is no 'xtal' column in the descriptor DataFrame, create one:
 
-        "descriptor_csv": "{COF_PROPERTY_CSV}"
-        "property_csvs": ["{COF_PROPERTY_CSV}"]
+           descriptor_df["xtal"] = descriptor_df["crystal_name"]
 
-   - Uses:
+       * optionally strip whitespace from 'crystal_name' and 'xtal' to avoid
+         subtle mismatches,
+       * save the cleaned descriptor DataFrame to:
 
-        "cif_dir": "{COF_CIF_DIR}"
+           "{COF_DESCRIPTOR_CSV_CLEAN}"
 
-   - Uses:
+         with index=False.
+   - After writing, print:
+       * descriptor_df.shape,
+       * list(descriptor_df.columns),
+       * and a few example values of descriptor_df["xtal"].
+   - Confirm explicitly (in words) that the cleaned descriptor CSV now has an
+     'xtal' column that should match the 'xtal' column in the property CSV.
 
-        "id_column": "xtal"
+4) Construct a JSON config for **COFMultiObjectiveBO** that:
+
+   - Uses the CLEANED descriptor CSV:
+
+       "descriptor_csv": "{COF_DESCRIPTOR_CSV_CLEAN}"
+
+   - Uses the SAME property CSV and CIF directory as above:
+
+       "property_csvs": ["{COF_PROPERTY_CSV}"]
+       "cif_dir": "{COF_CIF_DIR}"
+
+   - Uses the unified ID column:
+
+       "id_column": "xtal"
 
    - Uses the two target_properties:
 
-        "⟨N⟩ (mmol/g)"
-        "selectivity Xe/Kr"
+       "target_properties": ["⟨N⟩ (mmol/g)", "selectivity Xe/Kr"]
 
    - Sets:
 
-        "property_agg": "mean"
-        "top_k": 15
-        "n_weight_samples": 6
+       "property_agg": "mean"
+       "top_k": 15
+       "n_weight_samples": 6
 
-   Show me the JSON config you will use.
+   Show me the final JSON config you will use as the tool input.
 
-4) Call **COFMultiObjectiveBO** exactly once on the dataset, using the JSON
-   config from step (3) as the tool input.
+5) Call **COFMultiObjectiveBO** exactly once on the COF dataset, using the
+   JSON config from step (4) as the tool input.
 
-5) When COFMultiObjectiveBO returns, summarise in your own words:
+6) When COFMultiObjectiveBO returns, summarise in your own words:
 
-   - How many COFs (rows) were considered in total.
-   - How many rows are fully observed (all target_properties present).
-   - The Pareto front: for each non-dominated COF, list:
-       • the ID (xtal),
-       • its values for "⟨N⟩ (mmol/g)" and "selectivity Xe/Kr".
+   - How many COFs were considered in total.
+   - How many COFs are currently fully observed (all target_properties present).
+   - Which COFs are on the observed Pareto front. For each, list:
+       • the crystal identifier (xtal),
+       • its values for "⟨N⟩ (mmol/g)" and "selectivity Xe/Kr",
+       • and emphasise which ones show the best **selectivity**.
    - The top BO suggestions (up to 15), as ranked by EI, including for each:
-       • the ID (xtal),
-       • predicted mean ± uncertainty for both objectives.
+       • the crystal identifier,
+       • predicted mean ± uncertainty for both objectives,
+       • and a brief note on how good its selectivity is compared to others.
 
-6) If COFMultiObjectiveBO reports an error, quote the error message and explain
-   what appears to be wrong with the configuration or the data.
+7) If COFMultiObjectiveBO reports an error (e.g. missing columns, not enough
+   fully observed points), quote the error message and explain what appears to
+   be wrong with the configuration or data, and suggest how the cleaning could
+   be extended to fix it.
 """
-
-    print("\n=== TEST PROMPT (InspectCSVDataset + COFMultiObjectiveBO, props-only) ===\n")
+    print("\n=== TEST PROMPT (InspectCSVDataset + data cleaning + COFMultiObjectiveBO) ===\n")
     print(test_prompt)
     print("\n=== MODEL RESPONSE ===\n")
 
