@@ -1,6 +1,6 @@
 from langchain.tools import BaseTool
 from rdkit import Chem
-from rdkit.Chem import rdMolDescriptors
+from rdkit.Chem import rdMolDescriptors, QED
 
 from chemcrow.utils import *
 
@@ -149,6 +149,29 @@ class FuncGroups(BaseTool):
                 return f"This molecule contains {fgs_in_molec[0]}."
         except:
             return "Wrong argument. Please input a valid molecular SMILES."
+
+    async def _arun(self, smiles: str) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError()
+
+
+
+
+class QED_Score(BaseTool):
+    name = "QED_Calculator"
+    description = "Input SMILES, returns drug likeness score."
+
+    def __init__(
+        self,
+    ):
+        super().__init__()
+
+    def _run(self, smiles: str) -> str:
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return "Invalid SMILES string"
+        score = QED.qed(mol)
+        return score
 
     async def _arun(self, smiles: str) -> str:
         """Use the tool asynchronously."""

@@ -1,4 +1,5 @@
 import re
+import time
 
 import requests
 from rdkit import Chem, DataStructs
@@ -70,17 +71,76 @@ def pubchem_query2smiles(
             raise ValueError(
                 "Multiple SMILES strings detected, input one molecule at a time."
             )
-    if url is None:
-        url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{}/{}"
-    r = requests.get(url.format(query, "property/IsomericSMILES/JSON"))
-    # convert the response to a json object
-    data = r.json()
-    # return the SMILES string
+    
+    errors = []
+    
+    # **Attempt 1: PubChem API** (most reliable for chemical names)
+    print(f"[DEBUG] Attempt 1: Querying PubChem for '{query}'...")
     try:
-        smi = data["PropertyTable"]["Properties"][0]["IsomericSMILES"]
-    except KeyError:
-        return "Could not find a molecule matching the text. One possible cause is that the input is incorrect, input one molecule at a time."
-    return str(Chem.CanonSmiles(largest_mol(smi)))
+        if url is None:
+            url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{}/{}"
+        
+        r = requests.get(
+            url.format(query, "property/IsomericSMILES/JSON"),
+            timeout=10
+        )
+        r.raise_for_status()
+        
+        data = r.json()
+        
+        # Get SMILES from response (try IsomericSMILES first, then SMILES)
+        if "PropertyTable" in data and "Properties" in data["PropertyTable"]:
+            props = data["PropertyTable"]["Properties"][0]
+            smi = props.get("IsomericSMILES") or props.get("SMILES")
+            
+            if smi:
+                print(f"[DEBUG] ✓ PubChem found: {smi}")
+                return str(Chem.CanonSmiles(largest_mol(smi)))
+        
+        errors.append("PubChem: No SMILES data in response")
+        
+    except requests.exceptions.RequestException as e:
+        errors.append(f"PubChem API error: {str(e)[:50]}")
+    except Exception as e:
+        errors.append(f"PubChem parse error: {str(e)[:50]}")
+    
+    # **Attempt 2: Cactus NCI API** (better for brand names)
+    print(f"[DEBUG] Attempt 2: Querying Cactus NCI for '{query}'...")
+    try:
+        # Cactus is very simple - just returns SMILES as text
+        cactus_url = f"https://cactus.nci.nih.gov/chemical/structure/{query}/smiles"
+        r = requests.get(cactus_url, timeout=10)
+        r.raise_for_status()
+        
+        smi = r.text.strip()
+        
+        # Validate it's valid SMILES
+        if smi and is_smiles(smi):
+            print(f"[DEBUG] ✓ Cactus found: {smi}")
+            return str(Chem.CanonSmiles(largest_mol(smi)))
+        else:
+            errors.append(f"Cactus: Invalid SMILES '{smi}'")
+            
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            errors.append("Cactus: Molecule not found (404)")
+        else:
+            errors.append(f"Cactus HTTP error: {e.response.status_code}")
+    except requests.exceptions.RequestException as e:
+        errors.append(f"Cactus API error: {str(e)[:50]}")
+    except Exception as e:
+        errors.append(f"Cactus parse error: {str(e)[:50]}")
+    
+    # **All APIs failed**
+    error_summary = " | ".join(errors)
+    print(f"[DEBUG] ✗ All APIs failed: {error_summary}")
+    
+    raise ValueError(
+        f"Could not find a molecule matching '{query}'. "
+        f"Tried: PubChem API, Cactus NCI API. "
+        f"Errors: {error_summary}. "
+        f"Please verify the molecule name is correct."
+    )
 
 
 def query2cas(query: str, url_cid: str, url_data: str):
@@ -144,3 +204,5 @@ def smiles2name(smi, single_name=True):
     except KeyError:
         raise ValueError("Unknown Molecule")
     return name
+
+
