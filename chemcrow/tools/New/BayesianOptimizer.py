@@ -595,41 +595,70 @@ def run_cof_multi_bo_from_config(config_json: str) -> str:
 
 class COFMultiObjectiveBO(BaseTool):
     """
-    ChemCrow tool for **multi-objective** Bayesian Optimization over a COF library.
+    ChemCrow tool for multi-objective Bayesian optimisation over a finite COF
+    library using precomputed descriptors and property tables.
 
-    Input MUST be a single JSON string with fields:
+    Expected data:
+      - A descriptor CSV: one row per crystal, numeric descriptor columns, and
+        an identifier column (e.g. 'crystal_name').
+      - One or more property CSVs: measured or simulated properties per crystal,
+        joined by the same identifier (e.g. uptake, selectivity, band gap).
+      - A list of target_properties: the columns you want to MAXIMISE jointly.
 
-      - 'cif_dir':        directory containing CIF files (optional but recommended)
-      - 'descriptor_csv': CSV with numeric descriptors per crystal
-      - 'property_csvs':  list of CSVs with properties per crystal
-      - 'target_properties': list of property column names to MAXIMISE
-                             (e.g. uptake and selectivity)
-      - 'id_column':      common crystal ID column across CSVs (optional; inferred)
-      - 'property_agg':   'mean' (default), 'max', or 'min' aggregation over repeats
-      - 'top_k':          number of BO suggestions to return (default: 15)
+    What the tool does:
+      - Merges descriptors and property CSVs on the crystal ID (optionally
+        restricting to crystals that actually have CIFs in 'cif_dir').
+      - Identifies points where all target_properties are observed.
+      - Fits one Gaussian Process regressor per objective on those points.
+      - Normalises the objectives and runs scalarisation-based multi-objective
+        BO: samples weight vectors on the simplex, forms linear combos of the
+        normalised objectives, and applies Expected Improvement (EI).
+      - Ranks unobserved COFs by EI and reports the top candidates, with
+        predicted mean ± uncertainty for each objective.
+      - Also computes and reports the current Pareto front among observed
+        points, giving you a snapshot of the best trade-offs realised so far.
 
-    Optional scalarisation config:
+    Why this is useful:
+      - It turns a static COF property table into a decision-support tool:
+        instead of scanning thousands of rows manually, you get a ranked list
+        of promising candidates that balance multiple objectives (e.g. uptake
+        vs selectivity, stability vs performance).
+      - It respects the discrete nature of your library — it never proposes
+        fictitious structures, only re-orders the ones you already have.
+      - The Pareto front output is valuable even without BO: it tells you
+        which existing COFs are non-dominated with respect to your objectives.
 
-      - 'weights':        either [w1, ..., wm] for a single preference vector
-                          or [[...], [...], ...] for several.
-      - 'n_weight_samples': number of random weight vectors if 'weights' omitted.
-
-    The tool:
-      - Fits a Gaussian Process surrogate for each objective.
-      - Uses scalarisation-based MOBO (linear scalarisation + EI) across
-        sampled weight vectors.
-      - Reports the current Pareto front (observed) and top BO suggestions.
+    Limitations / assumptions:
+      - Requires at least a handful of fully-observed points (all objectives
+        present) to fit the GPs; otherwise it falls back to just reporting the
+        Pareto front among observed points.
+      - All objectives are assumed to be maximised. If you care about minimising
+        a quantity, you should pre-transform it (e.g. use -property).
+      - The quality of suggestions depends on descriptor quality, property noise,
+        and the assumption that GPs are a reasonable surrogate for the mapping
+        from descriptors to properties.
     """
 
     name = "COFMultiObjectiveBO"
     description = (
-        "Run multi-objective Bayesian optimisation over a COF dataset using "
-        "descriptors + property CSVs. Input is a JSON string with paths and "
-        "a list of target_properties to maximise; output is a text summary "
-        "including the current Pareto front and BO suggestions."
+        "Run multi-objective Bayesian optimisation over a COF dataset defined by "
+        "a descriptor CSV and one or more property CSVs. Input MUST be a JSON "
+        "string describing paths and columns, including 'descriptor_csv', "
+        "'property_csvs', and a list of 'target_properties' (objectives to "
+        "MAXIMISE). The tool:\n"
+        "  • merges descriptors and properties on a crystal ID,\n"
+        "  • fits a Gaussian Process surrogate for each objective,\n"
+        "  • uses scalarisation + Expected Improvement to rank untested COFs,\n"
+        "  • reports the current Pareto front and the top BO suggestions.\n"
+        "Use this when you want to systematically prioritise which COFs to "
+        "synthesise or simulate next given multiple competing objectives "
+        "(e.g. uptake and selectivity) over a finite library. It outputs a "
+        "human-readable text summary rather than raw arrays, so it can be used "
+        "directly in an LLM agent loop."
     )
 
     llm: Optional[BaseLanguageModel] = None  # not used, kept for symmetry
+
 
     def __init__(self, llm: Optional[BaseLanguageModel] = None):
         super().__init__()

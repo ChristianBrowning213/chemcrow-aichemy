@@ -202,33 +202,26 @@ Follow these steps, using tool calls explicitly:
    Use a JSON input of the form:
 
    {{
-     "cif_path_1": "FULL_PATH_TO_FIRST_CIF",
-     "cif_path_2": "FULL_PATH_TO_SECOND_CIF",
+     "cif_path_1": "C:\Users\brown\Documents\PhD\Winter School\COF_crystals\crystals\07000N2_ddec.cif",
+     "cif_path_2": "C:\Users\brown\Documents\PhD\Winter School\COF_crystals\crystals\07010N3_ddec.cif",
      "motif_library_path": "{motif_lib_str}",
      "allow_overlap": true
    }}
+
+5) 
+
+ Call **ArxivLiteratureSearch** to answer the following question:
+
+   "cool mammal facts"
+
+   Answer based ONLY on ArxivLiteratureSearch outputs. Summarise in 3 - 5 sentences.
+
 
    Then:
    - List which motifs are shared between the two structures, with their counts.
    - List which motifs are unique to each structure.
    If you cannot easily identify a second CIF, explain this and skip this step.
 
-5) Call **ArxivLiteratureSearch** once to answer the following question:
-
-   "How are covalent organic frameworks (COFs) used for gas storage applications?"
-
-   Answer based ONLY on ArxivLiteratureSearch outputs. Summarise in 3–5 sentences.
-{bo_section}
-8) At the end, briefly confirm which tools you actually invoked
-   (CheckCrystalFile, MotifDecomposition, MotifComparison, VastraVisualise,
-   ArxivLiteratureSearch{", COFMultiObjectiveBO" if has_cof_mobo else ""})
-   and what each one returned at a high level.
-
-Important:
-- Do NOT fabricate tool outputs; rely entirely on actual tool calls.
-- If any tool fails (e.g. missing file, VESTA not installed, motif library missing,
-  COF CSVs missing, or wrong column names), clearly report the error message and
-  continue with the remaining steps where possible.
 """
 
     print("\n=== TEST PROMPT (exercise all custom tools) ===\n")

@@ -27,7 +27,7 @@ TARGET_CIF = Path(
 )
 
 # Your simple COF motif library
-DEFAULT_MOTIF_LIB = Path(r"chemcrow\tools\New\motifs_cof_simple.json")
+DEFAULT_MOTIF_LIB = Path(r"chemcrow\tools\New\motifs_cof_from_library.json")
 
 os.environ.setdefault("VESTA_EXE", str(DEFAULT_VESTA))
 

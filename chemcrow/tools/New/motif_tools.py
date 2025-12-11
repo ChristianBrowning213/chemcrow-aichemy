@@ -14,6 +14,16 @@ try:
 except ImportError:
     np = None
 
+MOTIF_ERROR_PREFIX = "[MOTIF_TOOL_ERROR]"
+
+
+def _motif_fail(msg: str) -> str:
+    """
+    Return a compact, structured error string that the agent can detect.
+    """
+    # Keep the message short so it does not bloat context.
+    return f"{MOTIF_ERROR_PREFIX} {msg}"
+
 
 def _json_default(o):
     """
@@ -53,10 +63,54 @@ class MotifPattern:
     max_distance: float
     extra: Dict[str, Any] = field(default_factory=dict)
 
-
 def _load_motif_library_from_file(path: str | Path) -> List[MotifPattern]:
+    """
+    Load motifs from a *simple* JSON file that is already in MotifPattern schema:
+
+        [
+          {
+            "name": "C_sp2_like",
+            "central_species": "C",
+            "neighbor_species_counts": {"C": 2, "N": 1},
+            "max_distance": 1.7
+          },
+          ...
+        ]
+
+    This assumes you've preprocessed any complex libraries into this format.
+    """
     data = json.loads(Path(path).read_text())
-    return [MotifPattern(**entry) for entry in data]
+
+    if not isinstance(data, list):
+        raise ValueError(
+            f"Expected a JSON list of motifs in {path!s}, "
+            "each with name / central_species / neighbor_species_counts / max_distance."
+        )
+
+    patterns: List[MotifPattern] = []
+    for entry in data:
+        patterns.append(
+            MotifPattern(
+                name=entry["name"],
+                central_species=entry["central_species"],
+                neighbor_species_counts=entry["neighbor_species_counts"],
+                max_distance=float(entry["max_distance"]),
+                # Optional: keep any extra keys if present
+                extra={
+                    k: v
+                    for k, v in entry.items()
+                    if k
+                    not in {
+                        "name",
+                        "central_species",
+                        "neighbor_species_counts",
+                        "max_distance",
+                    }
+                },
+            )
+        )
+    return patterns
+
 
 
 def _load_motif_library(
@@ -350,178 +404,215 @@ def _summarise_comparison_for_llm(result: Dict, max_examples_per_motif: int = 3)
 
 class MotifDecompositionTool(BaseTool):
     """
-    ChemCrow tool for motif analysis in CIF files.
+    ChemCrow tool for motif-level analysis of crystal structures in CIF format.
 
-    INPUT FORMAT (query string):
-    -----------------------------
-    JSON with keys:
+    This tool takes a crystal structure (CIF) and a library of predefined
+    local motifs (e.g. coordination polyhedra or fragment patterns), and
+    decomposes the structure into motif instances.
 
-      Required:
-        - "mode": one of ["search", "all", "from-list"]
-        - "cif_path": path to the CIF file on disk
+    Under the hood:
+      - It uses pymatgen's MinimumDistanceNN to find neighbours for each site.
+      - Each motif pattern is defined by a central species, a required count
+        of neighbour species, and a maximum radial cutoff.
+      - For each site, the tool checks whether the local environment matches
+        any motif in the library and records all matches (optionally allowing
+        overlaps).
 
-      Motif definitions: provide EITHER:
-        - "motifs": list of motif definitions, OR
-        - "motif_library_path": path to JSON motifs file
+    Why this is useful:
+      - It lets you move from raw atomic coordinates to a "motif vocabulary"
+        of the structure (e.g. how many BO3 vs BO4 vs linkers, etc.).
+      - This motif fingerprint can be used to compare structures, build motif
+        statistics over a dataset, or feed downstream models (e.g. ML or
+        retrosynthesis logic).
+      - It provides both a compact summary (counts, examples) and a full
+        JSON dump of all motif instances and unassigned sites for post-hoc
+        analysis outside the LLM.
 
-      Optional:
-        - "motif_name" (for mode == "search")
-        - "allowed_motifs" (for mode == "from-list")
-        - "allow_overlap": bool
-
-    OUTPUT:
-    -------
-    A small JSON summary **plus** a path to the full JSON file on disk
-    with all motif instances and unassigned sites.
+    The quality of the decomposition depends on the motif library you supply:
+    max_distance and neighbour species counts must be tuned to your chemistry.
     """
 
     name: str = "MotifDecomposition"
     description: str = (
-        "Analyze coordination motifs in a CIF file. "
-        "Input MUST be a JSON string with keys: "
-        "'mode' (search|all|from-list), 'cif_path', and "
-        "either 'motifs' or 'motif_library_path'. "
-        "Returns a compact summary and also saves the **full** result "
-        "to a JSON file on disk for offline inspection."
+        "Decompose a CIF crystal structure into local coordination motifs using "
+        "a predefined motif library. The input MUST be a JSON string with: "
+        "'mode' ('search' | 'all' | 'from-list'), 'cif_path', and either "
+        "'motifs' (inline motif definitions) or 'motif_library_path' (JSON file). "
+        "The tool uses MinimumDistanceNN to detect neighbours and matches each site "
+        "to motifs defined by central species, neighbour species counts, and a "
+        "max distance cutoff. "
+        "Use this when you want a motif-level view of a structure: counts of each "
+        "motif type, example instances, and which sites are not covered by any motif. "
+        "It returns a compact JSON summary for the agent and writes the full result "
+        "to 'motif_results/<cif_stem>_motifs_<mode>.json' for detailed offline analysis."
     )
-
     default_motif_library_path: Optional[str] = None
 
     def __init__(self, default_motif_library_path: Optional[str] = None):
         super().__init__()
         self.default_motif_library_path = default_motif_library_path
-
     def _run(self, query: str) -> str:
         try:
-            params = json.loads(query)
-        except json.JSONDecodeError:
-            return (
-                "Invalid input for MotifDecomposition. "
-                "Expected a JSON string. Example:\n"
-                '{ "mode": "all", "cif_path": "path/to/file.cif", '
-                '"motif_library_path": "path/to/motifs.json" }'
-            )
-
-        mode = params.get("mode", "all")
-        cif_path = params.get("cif_path", None)
-        if cif_path is None:
-            return "Error: 'cif_path' is required."
-
-        motif_defs = params.get("motifs", None)
-        motif_library_path = params.get("motif_library_path", self.default_motif_library_path)
-        allow_overlap = params.get("allow_overlap", True)
-
-        try:
-            motif_library = _load_motif_library(
-                motifs=motif_defs,
-                motif_library_path=motif_library_path,
-            )
-        except Exception as e:
-            return f"Error loading motif library: {e}"
-
-        try:
-            structure = Structure.from_file(cif_path)
-        except Exception as e:
-            return f"Error reading CIF file '{cif_path}': {e}"
-
-        # Build full internal result
-        if mode == "search":
-            motif_name = params.get("motif_name", None)
-            if not motif_name:
-                return "Error: 'motif_name' is required in 'search' mode."
             try:
-                pattern = next(m for m in motif_library if m.name == motif_name)
-            except StopIteration:
-                return f"Error: motif '{motif_name}' not found in library."
-            occs = find_motif_occurrences(structure, pattern)
-            full_result = {
-                "mode": "search",
-                "motif_name": motif_name,
-                "motifs": occs,
-                "unassigned_sites": [],
+                params = json.loads(query)
+            except json.JSONDecodeError:
+                return _motif_fail(
+                    "Invalid input. Expected a JSON string with keys like "
+                    "'mode', 'cif_path', and either 'motifs' or 'motif_library_path'."
+                )
+
+            mode = params.get("mode", "all")
+            cif_path = params.get("cif_path", None)
+            if cif_path is None:
+                return _motif_fail("Missing required key 'cif_path' in input JSON.")
+
+            motif_defs = params.get("motifs", None)
+            motif_library_path = params.get(
+                "motif_library_path",
+                self.default_motif_library_path,
+            )
+            allow_overlap = params.get("allow_overlap", True)
+
+            try:
+                motif_library = _load_motif_library(
+                    motifs=motif_defs,
+                    motif_library_path=motif_library_path,
+                )
+            except Exception as e:
+                return _motif_fail(
+                    f"Error loading motif library (check 'motifs' or "
+                    f"'motif_library_path'): {type(e).__name__}"
+                )
+
+            try:
+                structure = Structure.from_file(cif_path)
+            except Exception as e:
+                return _motif_fail(
+                    f"Error reading CIF file '{cif_path}': {type(e).__name__}"
+                )
+
+            # Build full internal result
+            if mode == "search":
+                motif_name = params.get("motif_name", None)
+                if not motif_name:
+                    return _motif_fail(
+                        "In 'search' mode you must provide 'motif_name'."
+                    )
+                try:
+                    pattern = next(m for m in motif_library if m.name == motif_name)
+                except StopIteration:
+                    return _motif_fail(
+                        f"Motif '{motif_name}' not found in motif library."
+                    )
+                occs = find_motif_occurrences(structure, pattern)
+                full_result = {
+                    "mode": "search",
+                    "motif_name": motif_name,
+                    "motifs": occs,
+                    "unassigned_sites": [],
+                }
+
+            elif mode == "from-list":
+                allowed = params.get("allowed_motifs", None)
+                if not allowed:
+                    return _motif_fail(
+                        "In 'from-list' mode you must provide 'allowed_motifs'."
+                    )
+                decomp = decompose_structure(
+                    structure,
+                    motif_library,
+                    allowed_motifs=allowed,
+                    allow_overlap=allow_overlap,
+                )
+                decomp["mode"] = "from-list"
+                full_result = decomp
+
+            elif mode == "all":
+                decomp = decompose_structure(
+                    structure,
+                    motif_library,
+                    allowed_motifs=None,
+                    allow_overlap=allow_overlap,
+                )
+                decomp["mode"] = "all"
+                full_result = decomp
+
+            else:
+                return _motif_fail(
+                    "Invalid 'mode'. Expected one of: 'search', 'all', 'from-list'."
+                )
+
+            # Save full result to disk
+            out_dir = Path("motif_results")
+            out_dir.mkdir(parents=True, exist_ok=True)
+            base = Path(cif_path).stem
+            out_path = out_dir / f"{base}_motifs_{mode}.json"
+            out_path.write_text(
+                json.dumps(full_result, indent=2, default=_json_default),
+                encoding="utf-8",
+            )
+
+            # Build small summary for the LLM
+            summary_core = _summarise_decomposition_for_llm(full_result)
+            summary = {
+                "mode": mode,
+                "cif_path": cif_path,
+                "full_result_path": str(out_path),
+                **summary_core,
             }
 
-        elif mode == "from-list":
-            allowed = params.get("allowed_motifs", None)
-            if not allowed:
-                return "Error: 'allowed_motifs' is required in 'from-list' mode."
-            decomp = decompose_structure(
-                structure,
-                motif_library,
-                allowed_motifs=allowed,
-                allow_overlap=allow_overlap,
+            return json.dumps(summary, indent=2, default=_json_default)
+
+        except Exception as e:
+            # Absolute last-resort guard: no stack trace, just a short tag + type
+            return _motif_fail(
+                f"Unexpected tool-level error in MotifDecomposition: "
+                f"{type(e).__name__}"
             )
-            decomp["mode"] = "from-list"
-            full_result = decomp
 
-        elif mode == "all":
-            decomp = decompose_structure(
-                structure,
-                motif_library,
-                allowed_motifs=None,
-                allow_overlap=allow_overlap,
-            )
-            decomp["mode"] = "all"
-            full_result = decomp
-
-        else:
-            return "Error: 'mode' must be one of 'search', 'all', or 'from-list'."
-
-        # Save full result to disk
-        out_dir = Path("motif_results")
-        out_dir.mkdir(parents=True, exist_ok=True)
-        base = Path(cif_path).stem
-        out_path = out_dir / f"{base}_motifs_{mode}.json"
-        out_path.write_text(json.dumps(full_result, indent=2, default=_json_default), encoding="utf-8")
-
-        # Build small summary for the LLM
-        summary_core = _summarise_decomposition_for_llm(full_result)
-        summary = {
-            "mode": mode,
-            "cif_path": cif_path,
-            "full_result_path": str(out_path),
-            **summary_core,
-        }
-
-        return json.dumps(summary, indent=2, default=_json_default)
-
-    async def _arun(self, query: str) -> str:
-        raise NotImplementedError("this tool does not support async")
 
 
 class MotifComparisonTool(BaseTool):
     """
-    Compare motifs between TWO CIF files using a motif library.
+    Compare motif fingerprints between two crystal structures (two CIF files)
+    using a shared motif library.
 
-    INPUT (query string):
-    ---------------------
-    JSON with:
+    For each structure:
+      - Runs the same motif decomposition pipeline as MotifDecompositionTool.
+      - Builds an index of motif_name -> list of motif instances.
 
-      Required:
-        - "cif_path_1": path to first CIF
-        - "cif_path_2": path to second CIF
+    Then:
+      - Identifies motifs present in both structures and reports their counts.
+      - Lists motifs that are unique to structure 1 or structure 2.
+      - Saves a detailed JSON containing the full decompositions and per-motif
+        instance data.
 
-      Motif definitions: provide EITHER:
-        - "motifs": list of motif definitions, OR
-        - "motif_library_path": path to JSON file of motifs
-
-      Optional:
-        - "allowed_motifs": list of motif names to consider (subset)
-        - "allow_overlap": bool, default True
-
-    OUTPUT:
-    -------
-    A small JSON summary **plus** a path to a full JSON file on disk.
+    Why this is useful:
+      - It gives a chemically meaningful comparison that goes beyond simple
+        formula or cell parameters: you can see how two COFs/MOFs differ in
+        local building blocks.
+      - Helpful for "is this COF basically the same motif-wise as that one?",
+        clustering, or analysing structure–property differences in terms of
+        local environments rather than only global descriptors.
     """
 
     name: str = "MotifComparison"
     description: str = (
-        "Compare motifs between two CIF files using a motif library. "
-        "Input MUST be a JSON string with keys: "
-        "'cif_path_1', 'cif_path_2', and either 'motifs' or 'motif_library_path'. "
-        "Returns a compact summary and saves the full comparison result to disk."
+        "Compare the motif content of two CIF structures using a shared motif "
+        "library. Input MUST be a JSON string with 'cif_path_1', 'cif_path_2', "
+        "and either 'motifs' or 'motif_library_path'. Optional keys: "
+        "'allowed_motifs' to restrict to a subset and 'allow_overlap' to control "
+        "whether motifs can share sites. "
+        "The tool decomposes both structures into motif instances, then reports: "
+        "(i) a summary of motif counts in each structure, "
+        "(ii) motifs shared by both (with counts), and "
+        "(iii) motif types unique to each. "
+        "Use this when you want to answer questions like 'how do these two COFs "
+        "differ in terms of local building blocks?' rather than just comparing "
+        "formulae or bulk descriptors. The full comparison is saved to "
+        "'motif_results/compare_<name1>_vs_<name2>.json' for deeper inspection."
     )
-
+    
     default_motif_library_path: Optional[str] = None
 
     def __init__(self, default_motif_library_path: Optional[str] = None):
@@ -530,72 +621,92 @@ class MotifComparisonTool(BaseTool):
 
     def _run(self, query: str) -> str:
         try:
-            params = json.loads(query)
-        except json.JSONDecodeError:
-            return (
-                "Invalid input for MotifComparison. Expected a JSON string. Example:\n"
-                '{ "cif_path_1": "path/to/a.cif", '
-                '"cif_path_2": "path/to/b.cif", '
-                '"motif_library_path": "path/to/motifs.json" }'
+            try:
+                params = json.loads(query)
+            except json.JSONDecodeError:
+                return _motif_fail(
+                    "Invalid input. Expected a JSON string with keys like "
+                    "'cif_path_1', 'cif_path_2', and either 'motifs' or "
+                    "'motif_library_path'."
+                )
+
+            cif_path_1 = params.get("cif_path_1", None)
+            cif_path_2 = params.get("cif_path_2", None)
+            if not cif_path_1 or not cif_path_2:
+                return _motif_fail(
+                    "Both 'cif_path_1' and 'cif_path_2' are required."
+                )
+
+            motif_defs = params.get("motifs", None)
+            motif_library_path = params.get(
+                "motif_library_path",
+                self.default_motif_library_path,
+            )
+            allowed_motifs = params.get("allowed_motifs", None)
+            allow_overlap = params.get("allow_overlap", True)
+
+            try:
+                motif_library = _load_motif_library(
+                    motifs=motif_defs,
+                    motif_library_path=motif_library_path,
+                )
+            except Exception as e:
+                return _motif_fail(
+                    f"Error loading motif library (check 'motifs' or "
+                    f"'motif_library_path'): {type(e).__name__}"
+                )
+
+            try:
+                struct1 = Structure.from_file(cif_path_1)
+            except Exception as e:
+                return _motif_fail(
+                    f"Error reading CIF file 1 '{cif_path_1}': {type(e).__name__}"
+                )
+
+            try:
+                struct2 = Structure.from_file(cif_path_2)
+            except Exception as e:
+                return _motif_fail(
+                    f"Error reading CIF file 2 '{cif_path_2}': {type(e).__name__}"
+                )
+
+            try:
+                full_result = compare_two_structures(
+                    struct1,
+                    struct2,
+                    motif_library,
+                    allowed_motifs=allowed_motifs,
+                    allow_overlap=allow_overlap,
+                )
+            except Exception as e:
+                return _motif_fail(
+                    f"Error during motif comparison: {type(e).__name__}"
+                )
+
+            # Save full comparison result to disk
+            out_dir = Path("motif_results")
+            out_dir.mkdir(parents=True, exist_ok=True)
+            base1 = Path(cif_path_1).stem
+            base2 = Path(cif_path_2).stem
+            out_path = out_dir / f"compare_{base1}_vs_{base2}.json"
+            out_path.write_text(
+                json.dumps(full_result, indent=2, default=_json_default),
+                encoding="utf-8",
             )
 
-        cif_path_1 = params.get("cif_path_1", None)
-        cif_path_2 = params.get("cif_path_2", None)
-        if not cif_path_1 or not cif_path_2:
-            return "Error: 'cif_path_1' and 'cif_path_2' are both required."
+            # Small summary for LLM
+            summary_core = _summarise_comparison_for_llm(full_result)
+            summary = {
+                "cif_path_1": cif_path_1,
+                "cif_path_2": cif_path_2,
+                "full_result_path": str(out_path),
+                **summary_core,
+            }
 
-        motif_defs = params.get("motifs", None)
-        motif_library_path = params.get("motif_library_path", self.default_motif_library_path)
-        allowed_motifs = params.get("allowed_motifs", None)
-        allow_overlap = params.get("allow_overlap", True)
+            return json.dumps(summary, indent=2, default=_json_default)
 
-        try:
-            motif_library = _load_motif_library(
-                motifs=motif_defs,
-                motif_library_path=motif_library_path,
+        except Exception as e:
+            return _motif_fail(
+                f"Unexpected tool-level error in MotifComparison: "
+                f"{type(e).__name__}"
             )
-        except Exception as e:
-            return f"Error loading motif library: {e}"
-
-        try:
-            struct1 = Structure.from_file(cif_path_1)
-        except Exception as e:
-            return f"Error reading CIF file 1 '{cif_path_1}': {e}"
-
-        try:
-            struct2 = Structure.from_file(cif_path_2)
-        except Exception as e:
-            return f"Error reading CIF file 2 '{cif_path_2}': {e}"
-
-        try:
-            full_result = compare_two_structures(
-                struct1,
-                struct2,
-                motif_library,
-                allowed_motifs=allowed_motifs,
-                allow_overlap=allow_overlap,
-            )
-        except Exception as e:
-            return f"Error comparing motifs: {e}"
-
-        # Save full comparison result to disk
-        out_dir = Path("motif_results")
-        out_dir.mkdir(parents=True, exist_ok=True)
-        base1 = Path(cif_path_1).stem
-        base2 = Path(cif_path_2).stem
-        out_path = out_dir / f"compare_{base1}_vs_{base2}.json"
-        out_path.write_text(json.dumps(full_result, indent=2, default=_json_default), encoding="utf-8")
-
-        # Small summary for LLM
-        summary_core = _summarise_comparison_for_llm(full_result)
-        summary = {
-            "cif_path_1": cif_path_1,
-            "cif_path_2": cif_path_2,
-            "full_result_path": str(out_path),
-            **summary_core,
-        }
-
-        return json.dumps(summary, indent=2, default=_json_default)
-
-    async def _arun(self, query: str) -> str:
-        raise NotImplementedError("this tool does not support async")

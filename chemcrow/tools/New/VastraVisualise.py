@@ -70,37 +70,30 @@ def _write_temp_cif_from_text(cif_text: str, tmp_dir: Path) -> Path:
     cif_path.write_text(cif_text)
     return cif_path
 
-
 def _run_vesta_export(
     cif_path: Path,
     out_png: Path,
     vesta_exe: Optional[str] = None,
     scale: Optional[int] = 2,
-    nogui: bool = True,
+    nogui: bool = True,  # kept for signature compatibility, but ignored
 ) -> str:
     """
-    Call VESTA to export a PNG from a CIF, in a headless-friendly way.
+    Call VESTA to export a PNG from a CIF.
 
-    This is analogous to your qlip.visualization.vesta._vesta_export_and_open,
-    but specialised for 'export PNG and exit' and suitable as a non-interactive tool.
+    NOTE: We *do not* use '-nogui' here because it crashes on this VESTA build.
+    We just mimic the working CLI call:
+
+        VESTA.exe -open <cif> -export_img scale=2 <png>
     """
     exe = _resolve_vesta(vesta_exe)
     out_png.parent.mkdir(parents=True, exist_ok=True)
 
-    cmd = [exe]
-    if nogui:
-        cmd.append("-nogui")
-    # Basic: open CIF and export image
-    cmd += ["-open", _norm(cif_path), "-export_img"]
-
+    # Build the exact command that works on your machine
+    cmd = [exe, "-open", _norm(cif_path), "-export_img"]
     if scale is not None:
         cmd += [f"scale={scale}", _norm(out_png)]
     else:
         cmd += [_norm(out_png)]
-
-    # For tool use we *do* want VESTA to exit afterwards
-    # (if your VESTA respects -close you could add it, but it's often unnecessary)
-    # cmd += ["-close", _norm(cif_path)]
 
     creationflags = 0
     if os.name == "nt":
@@ -117,8 +110,13 @@ def _run_vesta_export(
 
     if result.returncode != 0:
         raise RuntimeError(
-            f"VESTA command failed with code {result.returncode}.\n"
-            f"STDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}"
+            "VESTA command failed with code {code}.\n"
+            "CMD:\n{cmd}\n\nSTDOUT:\n{stdout}\n\nSTDERR:\n{stderr}".format(
+                code=result.returncode,
+                cmd=" ".join(cmd),
+                stdout=result.stdout,
+                stderr=result.stderr,
+            )
         )
 
     if not out_png.exists():
@@ -129,36 +127,48 @@ def _run_vesta_export(
     return str(out_png.resolve())
 
 
+
 # ----------------------- ChemCrow / LangChain tool ----------------------- #
 
 class VastraVisualise(BaseTool):
-    """
-    ChemCrow tool: given CIF content (or a CIF file path), generate a PNG via VESTA.
 
-    Input contract for the LLM:
-      - Pass EITHER:
-          (a) the path to an existing '.cif' file, OR
-          (b) the full CIF contents as text, exactly as they appear in the file.
+    """
+    ChemCrow tool: call VESTA from the command line to render a CIF as a PNG.
+
+    Input contract:
+      - Either a path to an existing '.cif' file, OR
+      - The raw CIF text content.
 
     Behaviour:
-      - If the input string looks like a path to an existing '.cif' file, Vastra will
-        read that file and send it to VESTA.
-      - Otherwise, Vastra will treat the input as raw CIF text, write a temporary CIF,
-        and send that to VESTA.
-      - VESTA is run in no-GUI mode if supported ('-nogui'), and a PNG image is saved
-        to 'viz/vastra_output.png' (relative to the current working directory).
+      - If the input string looks like a valid CIF path, it uses that file directly.
+      - Otherwise, it writes the provided text to a temporary CIF file.
+      - It then calls VESTA (resolved via 'vesta_exe', $VESTA_EXE or PATH) with
+        '-open <cif> -export_img scale=<scale> <png>' to generate a PNG image.
 
-    Output:
-      - A string of the form: 'Saved structure image to: <absolute/path/to/png>'
-      - On failure, a string describing the error.
+    Why this is useful:
+      - It gives the agent a quick way to produce a human-viewable picture of
+        a proposed or retrieved structure without hand-opening VESTA.
+      - You can visually sanity-check motif decompositions, connectivity, pore
+        shapes, or suspected errors in the CIF.
+      - Downstream systems (e.g. a notebook or UI) can display the PNG path
+        returned by this tool.
+
+    Requirements / limitations:
+      - VESTA must be installed on the host machine and discoverable
+        (via 'vesta_exe', $VESTA_EXE, or PATH).
+      - This produces a static PNG; it does not expose any interactive VESTA
+        features or 3D controls.
     """
 
     name = "VastraVisualise"
     description = (
-        "Input CIF data or a path to a .cif file. "
-        "Uses VESTA to render a PNG of the crystal structure into the local "
-        "directory (viz/vastra_output.png) and returns the PNG path. "
-        "Use this to visualise crystal structures from CIF."
+        "Render a crystal structure from CIF into a PNG using VESTA. "
+        "Call this tool with either a CIF filepath or the full CIF text. "
+        "The tool resolves the VESTA executable, exports an image via the "
+        "VESTA CLI, and saves it to 'viz/vastra_output.png' (or a configured path). "
+        "Use it when you want a quick visual check of a structure (e.g. motif "
+        "arrangement, pore geometry, obvious CIF mistakes) without manually "
+        "opening VESTA. The output is a string giving the absolute PNG path."
     )
 
     # Optional configuration

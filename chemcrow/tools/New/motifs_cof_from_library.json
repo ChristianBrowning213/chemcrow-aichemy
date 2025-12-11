@@ -1,0 +1,469 @@
+[
+  {
+    "name": "BC1O2",
+    "central_species": "B",
+    "neighbor_species_counts": {
+      "O": 2,
+      "C": 1
+    },
+    "max_distance": 1.6997633577684754
+  },
+  {
+    "name": "CB1C2",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 2,
+      "B": 1
+    },
+    "max_distance": 1.6959533548464891
+  },
+  {
+    "name": "CC1H1N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 1,
+      "N": 1,
+      "C": 1
+    },
+    "max_distance": 1.5755552870139582
+  },
+  {
+    "name": "CC1N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "N": 1,
+      "C": 1
+    },
+    "max_distance": 1.5820395648297636
+  },
+  {
+    "name": "CC1N2",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "N": 2,
+      "C": 1
+    },
+    "max_distance": 1.6039122930915077
+  },
+  {
+    "name": "CC1S2",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 1,
+      "S": 2
+    },
+    "max_distance": 1.935606725235354
+  },
+  {
+    "name": "CC2",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 2
+    },
+    "max_distance": 1.5374501195745414
+  },
+  {
+    "name": "CC2Cl1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 2,
+      "Cl": 1
+    },
+    "max_distance": 1.9099833542496758
+  },
+  {
+    "name": "CC2H1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 1,
+      "C": 2
+    },
+    "max_distance": 1.5542147928417338
+  },
+  {
+    "name": "CC2N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "N": 1,
+      "C": 2
+    },
+    "max_distance": 1.5867437017042887
+  },
+  {
+    "name": "CC2O1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "O": 1,
+      "C": 2
+    },
+    "max_distance": 1.5466744773403143
+  },
+  {
+    "name": "CC2S1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 2,
+      "S": 1
+    },
+    "max_distance": 1.9208498445720934
+  },
+  {
+    "name": "CC2Si1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 2,
+      "Si": 1
+    },
+    "max_distance": 2.068949024449387
+  },
+  {
+    "name": "CC3",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 3
+    },
+    "max_distance": 1.6164168841957955
+  },
+  {
+    "name": "CC3N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "N": 1,
+      "C": 3
+    },
+    "max_distance": 1.700118245470452
+  },
+  {
+    "name": "CC4",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "C": 4
+    },
+    "max_distance": 1.7039316978135093
+  },
+  {
+    "name": "CF1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "F": 1
+    },
+    "max_distance": 1.4973093129002404
+  },
+  {
+    "name": "CH1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 1
+    },
+    "max_distance": 1.1956718859447535
+  },
+  {
+    "name": "CH1N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 1,
+      "N": 1
+    },
+    "max_distance": 1.6186560754900248
+  },
+  {
+    "name": "CH2",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 2
+    },
+    "max_distance": 1.208978961028837
+  },
+  {
+    "name": "CH2N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 2,
+      "N": 1
+    },
+    "max_distance": 1.612821528596789
+  },
+  {
+    "name": "CH2O1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 2,
+      "O": 1
+    },
+    "max_distance": 1.5915064259213043
+  },
+  {
+    "name": "CH3",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 3
+    },
+    "max_distance": 1.2098909480211009
+  },
+  {
+    "name": "CH3N1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 3,
+      "N": 1
+    },
+    "max_distance": 1.6345472746712053
+  },
+  {
+    "name": "CH3O1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "H": 3,
+      "O": 1
+    },
+    "max_distance": 1.5818506766702365
+  },
+  {
+    "name": "CN1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "N": 1
+    },
+    "max_distance": 1.4617728584839467
+  },
+  {
+    "name": "CN1O1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "N": 1,
+      "O": 1
+    },
+    "max_distance": 1.5578648427424369
+  },
+  {
+    "name": "CO1",
+    "central_species": "C",
+    "neighbor_species_counts": {
+      "O": 1
+    },
+    "max_distance": 1.5040288441346827
+  },
+  {
+    "name": "ClC1",
+    "central_species": "Cl",
+    "neighbor_species_counts": {
+      "C": 1
+    },
+    "max_distance": 1.913602172613428
+  },
+  {
+    "name": "FC1",
+    "central_species": "F",
+    "neighbor_species_counts": {
+      "C": 1
+    },
+    "max_distance": 1.4977505480476285
+  },
+  {
+    "name": "HC1",
+    "central_species": "H",
+    "neighbor_species_counts": {
+      "C": 1
+    },
+    "max_distance": 1.1985774357054917
+  },
+  {
+    "name": "HN1",
+    "central_species": "H",
+    "neighbor_species_counts": {
+      "N": 1
+    },
+    "max_distance": 1.131242748503014
+  },
+  {
+    "name": "HN1O1",
+    "central_species": "H",
+    "neighbor_species_counts": {
+      "N": 1,
+      "O": 1
+    },
+    "max_distance": 1.7890081235417274
+  },
+  {
+    "name": "HO1",
+    "central_species": "H",
+    "neighbor_species_counts": {
+      "O": 1
+    },
+    "max_distance": 1.0739381861297195
+  },
+  {
+    "name": "NC1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 1
+    },
+    "max_distance": 1.39516171241581
+  },
+  {
+    "name": "NC1H1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "H": 1,
+      "C": 1
+    },
+    "max_distance": 1.5161219378755675
+  },
+  {
+    "name": "NC1H1N1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "H": 1,
+      "C": 1,
+      "N": 1
+    },
+    "max_distance": 1.6226512147900132
+  },
+  {
+    "name": "NC1N1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "N": 1,
+      "C": 1
+    },
+    "max_distance": 1.5286832464152962
+  },
+  {
+    "name": "NC2",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 2
+    },
+    "max_distance": 1.5134715369313867
+  },
+  {
+    "name": "NC2Co1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 2,
+      "Co": 1
+    },
+    "max_distance": 2.171808922572854
+  },
+  {
+    "name": "NC2Cu1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 2,
+      "Cu": 1
+    },
+    "max_distance": 2.1990047117385965
+  },
+  {
+    "name": "NC2H1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 2,
+      "H": 1
+    },
+    "max_distance": 1.799905792545778
+  },
+  {
+    "name": "NC2N1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "N": 1,
+      "C": 2
+    },
+    "max_distance": 1.5691969319558337
+  },
+  {
+    "name": "NC2Ni1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 2,
+      "Ni": 1
+    },
+    "max_distance": 2.115029587194973
+  },
+  {
+    "name": "NC2Zn1",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 2,
+      "Zn": 1
+    },
+    "max_distance": 2.2354977300239587
+  },
+  {
+    "name": "NC3",
+    "central_species": "N",
+    "neighbor_species_counts": {
+      "C": 3
+    },
+    "max_distance": 1.5949838662365197
+  },
+  {
+    "name": "OB1C1",
+    "central_species": "O",
+    "neighbor_species_counts": {
+      "C": 1,
+      "B": 1
+    },
+    "max_distance": 1.5574806139173567
+  },
+  {
+    "name": "OB1P1",
+    "central_species": "O",
+    "neighbor_species_counts": {
+      "B": 1,
+      "P": 1
+    },
+    "max_distance": 1.7046664349397906
+  },
+  {
+    "name": "OC1",
+    "central_species": "O",
+    "neighbor_species_counts": {
+      "C": 1
+    },
+    "max_distance": 1.3706814972990895
+  },
+  {
+    "name": "OC1H1",
+    "central_species": "O",
+    "neighbor_species_counts": {
+      "C": 1,
+      "H": 1
+    },
+    "max_distance": 1.8117381173498959
+  },
+  {
+    "name": "OC2",
+    "central_species": "O",
+    "neighbor_species_counts": {
+      "C": 2
+    },
+    "max_distance": 1.5541893883486524
+  },
+  {
+    "name": "ON1",
+    "central_species": "O",
+    "neighbor_species_counts": {
+      "N": 1
+    },
+    "max_distance": 1.3855740553096245
+  },
+  {
+    "name": "PC1O3",
+    "central_species": "P",
+    "neighbor_species_counts": {
+      "O": 3,
+      "C": 1
+    },
+    "max_distance": 1.9633294116530502
+  },
+  {
+    "name": "SC2",
+    "central_species": "S",
+    "neighbor_species_counts": {
+      "C": 2
+    },
+    "max_distance": 1.9352313700365595
+  }
+]
