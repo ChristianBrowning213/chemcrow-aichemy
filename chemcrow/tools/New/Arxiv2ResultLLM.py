@@ -352,7 +352,7 @@ def arxiv2result_llm(
 # ------------ ChemCrow tool wrapper ------------ #
 
 class Arxiv2ResultLLM(BaseTool):
-   """
+    """
     ChemCrow tool for answering technical questions using primary literature
     from arxiv.org (physics, CS, maths, etc.).
 

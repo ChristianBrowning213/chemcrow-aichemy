@@ -7,11 +7,16 @@ from typing import List as TList
 from chemcrow.agents import make_tools, ChemCrow
 from langchain.chat_models import ChatOpenAI
 from langchain.tools import BaseTool
+import json
+
 
 # === IMPORT YOUR CUSTOM TOOLS FROM tools/New ===
 from chemcrow.tools.New.Arxiv2ResultLLM import Arxiv2ResultLLM
 from chemcrow.tools.New.motif_tools import MotifDecompositionTool, MotifComparisonTool
 from chemcrow.tools.New.VastraVisualise import VastraVisualise
+from chemcrow.tools.New.cof_multiobjective_bo import COFMultiObjectiveBO  # <-- NEW
+from chemcrow.tools.New.csv_inspector import InspectCSVDataset
+
 
 
 # === HARD-CODED PATHS FOR YOUR SETUP ===
@@ -113,11 +118,13 @@ def build_clean_chemcrow():
 
     # 2) Motif decomposition & comparison
     motif_tool = MotifDecompositionTool(
-        default_motif_library_path=str(DEFAULT_MOTIF_LIB)
+        default_motif_library_path=str(DEFAULT_MOTIF_LIB),
+        default_crystal_dir=DEFAULT_CRYSTAL_DIR,      # <-- NEW
     )
 
     motif_compare_tool = MotifComparisonTool(
-        default_motif_library_path=str(DEFAULT_MOTIF_LIB)
+        default_motif_library_path=str(DEFAULT_MOTIF_LIB),
+        default_crystal_dir=DEFAULT_CRYSTAL_DIR,      # <-- NEW
     )
 
     # 3) VESTA visualisation (CIF → PNG)
@@ -130,6 +137,11 @@ def build_clean_chemcrow():
 
     # 4) CIF directory listing tool
     check_cif_tool = CheckCrystalFileTool(crystals_dir=DEFAULT_CRYSTAL_DIR)
+    
+    cof_bo_tool = COFMultiObjectiveBO(llm=tools_llm)
+    
+    # 6) CSV introspection for BO / ML config
+    csv_inspect_tool = InspectCSVDataset()
 
     custom_tools: TList[BaseTool] = [
         arxiv_tool,
@@ -137,6 +149,8 @@ def build_clean_chemcrow():
         motif_compare_tool,
         vastra_tool,
         check_cif_tool,
+        cof_bo_tool,
+        csv_inspect_tool,  # <-- new
     ]
 
     clean_tools.extend(custom_tools)

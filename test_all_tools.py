@@ -220,10 +220,7 @@ Follow these steps, using tool calls explicitly:
    Then:
    - List which motifs are shared between the two structures, with their counts.
    - List which motifs are unique to each structure.
-   If you cannot easily identify a second CIF, explain this and skip this step.
-
-"""
-
+   If you cannot easily identify a second CIF, explain this and skip this step."""
     print("\n=== TEST PROMPT (exercise all custom tools) ===\n")
     print(test_prompt)
     print("\n=== MODEL RESPONSE ===\n")

@@ -15,7 +15,7 @@ Assumes:
         DEFAULT_CRYSTAL_DIR
         TARGET_CIF
         DEFAULT_MOTIF_LIB
-  - motifs_cof_simple.json exists at DEFAULT_MOTIF_LIB.
+  - motifs_cof_from_library.json exists at DEFAULT_MOTIF_LIB.
   - If you want the BO step, COFMultiObjectiveBO is imported and registered
     as a tool inside build_clean_chemcrow.
 
@@ -32,6 +32,7 @@ COF BO dataset is assumed to live at:
 """
 
 import os
+import json
 
 from clean_chemcrow_minimal import (
     build_clean_chemcrow,
@@ -40,11 +41,15 @@ from clean_chemcrow_minimal import (
     DEFAULT_MOTIF_LIB,
 )
 
+
 # --- COF BO dataset paths (Windows) --- #
 
 COF_CIF_DIR = r"C:\Users\brown\Downloads\COF_crystals\crystals"
 COF_DESCRIPTOR_CSV = r"C:\Users\brown\Downloads\COF_crystals\cof_descriptors.csv"
 COF_PROPERTY_CSV = r"C:\Users\brown\Downloads\COF_crystals\gcmc_calculations.csv"
+
+# Just the filename of the target CIF, e.g. "07000N2_ddec.cif"
+target_cif_name = TARGET_CIF.name
 
 
 def main():
@@ -63,23 +68,20 @@ def main():
         print(f"  - {n}")
     print(f"\nCOFMultiObjectiveBO registered? {has_cof_mobo}\n")
 
+    # Strings for prompt context (for human, not for JSON)
     target_cif_str = str(TARGET_CIF)
     crystal_dir_str = str(DEFAULT_CRYSTAL_DIR)
     motif_lib_str = str(DEFAULT_MOTIF_LIB)
 
-    # Windows JSON escaping for motif/CIF paths
-    target_cif_json = target_cif_str.replace("\\", "\\\\")
-    motif_lib_json = motif_lib_str.replace("\\", "\\\\")
-
-    # JSON payload for MotifDecomposition
-    motif_decomp_json = (
-        "{"
-        f"\"mode\": \"all\", "
-        f"\"cif_path\": \"{target_cif_json}\", "
-        f"\"motif_library_path\": \"{motif_lib_json}\", "
-        "\"allow_overlap\": true"
-        "}"
-    )
+    # JSON payload for MotifDecomposition.
+    # We only pass the CIF NAME; the tool resolves it using its default CIF dir
+    # and uses its default motif library path.
+    motif_decomp_payload = {
+        "mode": "all",
+        "cif_name": target_cif_name,
+        "allow_overlap": True,
+    }
+    motif_decomp_json = json.dumps(motif_decomp_payload)
 
     # --- JSON payload for COFMultiObjectiveBO (multi-objective BO) --- #
 
@@ -88,6 +90,8 @@ def main():
     extra_tool_line = ""
 
     if has_cof_mobo:
+        # For the BO tool we still pass full paths and escape backslashes,
+        # because that tool expects raw paths in its JSON.
         cof_cif_dir_json = COF_CIF_DIR.replace("\\", "\\\\")
         cof_desc_csv_json = COF_DESCRIPTOR_CSV.replace("\\", "\\\\")
         cof_prop_csv_json = COF_PROPERTY_CSV.replace("\\", "\\\\")
@@ -114,7 +118,7 @@ def main():
         extra_tool_line = "  - COFMultiObjectiveBO\n"
 
         bo_section = f"""
-7) Call **COFMultiObjectiveBO** once on the COF dataset, using EXACTLY the
+6) Call **COFMultiObjectiveBO** once on the COF dataset, using EXACTLY the
    following JSON string as the tool input (do NOT modify this string):
 
    {cof_mobo_config_json}
@@ -180,20 +184,23 @@ Follow these steps, using tool calls explicitly:
 
 1) Use **CheckCrystalFile** to verify that the CIF
    "07000N2_ddec.cif"
-   exists in the default crystal directory. Use the full absolute path returned
-   by this tool in all later steps.
+   exists in the default crystal directory. For later steps that need a full
+   path (e.g. VESTA visualisation), use the absolute path returned by this tool.
 
 2) Call **MotifDecomposition** once on that CIF with EXACTLY the following JSON
-   string as the input (do not alter it other than inserting the correct slashes):
+   string as the input:
 
    {motif_decomp_json}
+
+   This JSON uses the CIF filename ('cif_name'). The tool will resolve it inside
+   the default crystal directory and will use its default motif library path.
 
    Then:
    - Summarise how many motif instances were found, grouped by motif_name.
    - State how many unassigned_sites there are.
 
 3) Call **VastraVisualise** once on the SAME CIF, with the full absolute path
-   as the input (e.g. "{target_cif_str}").
+   as the input (e.g. "{target_cif_str}" or the path reported by CheckCrystalFile).
    Wait for the tool result. Tell me where the PNG was written (or report the
    error if VESTA fails).
 
@@ -202,26 +209,24 @@ Follow these steps, using tool calls explicitly:
    Use a JSON input of the form:
 
    {{
-     "cif_path_1": "C:\Users\brown\Documents\PhD\Winter School\COF_crystals\crystals\07000N2_ddec.cif",
-     "cif_path_2": "C:\Users\brown\Documents\PhD\Winter School\COF_crystals\crystals\07010N3_ddec.cif",
-     "motif_library_path": "{motif_lib_str}",
+     "cif_name_1": "07000N2_ddec.cif",
+     "cif_name_2": "07010N3_ddec.cif",
      "allow_overlap": true
    }}
 
-5) 
-
- Call **ArxivLiteratureSearch** to answer the following question:
-
-   "cool mammal facts"
-
-   Answer based ONLY on ArxivLiteratureSearch outputs. Summarise in 3–5 sentences.
-
+   The tool will resolve these filenames inside the default crystal directory
+   and will use its default motif library path configured in the environment.
 
    Then:
    - List which motifs are shared between the two structures, with their counts.
    - List which motifs are unique to each structure.
    If you cannot easily identify a second CIF, explain this and skip this step.
 
+5) Call **ArxivLiteratureSearch** to answer the following question:
+
+   "cool mammal facts"
+
+   Answer based ONLY on ArxivLiteratureSearch outputs. Summarise in 3–5 sentences.
 """
 
     print("\n=== TEST PROMPT (exercise all custom tools) ===\n")

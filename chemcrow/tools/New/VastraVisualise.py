@@ -3,7 +3,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 from typing import Optional
-
+import time  # <-- ADD THIS
 from langchain.tools import BaseTool
 
 
@@ -70,6 +70,7 @@ def _write_temp_cif_from_text(cif_text: str, tmp_dir: Path) -> Path:
     cif_path.write_text(cif_text)
     return cif_path
 
+
 def _run_vesta_export(
     cif_path: Path,
     out_png: Path,
@@ -80,10 +81,9 @@ def _run_vesta_export(
     """
     Call VESTA to export a PNG from a CIF.
 
-    NOTE: We *do not* use '-nogui' here because it crashes on this VESTA build.
-    We just mimic the working CLI call:
-
-        VESTA.exe -open <cif> -export_img scale=2 <png>
+    We treat the run as SUCCESS if the PNG file is actually created,
+    even if VESTA returns a non-zero code. Only if no PNG appears do we
+    raise an error.
     """
     exe = _resolve_vesta(vesta_exe)
     out_png.parent.mkdir(parents=True, exist_ok=True)
@@ -108,23 +108,27 @@ def _run_vesta_export(
         creationflags=creationflags,
     )
 
-    if result.returncode != 0:
-        raise RuntimeError(
-            "VESTA command failed with code {code}.\n"
-            "CMD:\n{cmd}\n\nSTDOUT:\n{stdout}\n\nSTDERR:\n{stderr}".format(
-                code=result.returncode,
-                cmd=" ".join(cmd),
-                stdout=result.stdout,
-                stderr=result.stderr,
-            )
-        )
+    # --- New bit: wait briefly for the PNG to actually appear ---
+    wait_seconds = 5.0
+    poll_interval = 0.25
+    deadline = time.time() + wait_seconds
 
-    if not out_png.exists():
-        raise RuntimeError(
-            f"VESTA reported success but '{out_png}' was not created."
-        )
+    while not out_png.exists() and time.time() < deadline:
+        time.sleep(poll_interval)
 
-    return str(out_png.resolve())
+    # If we *do* have a PNG, treat this as success regardless of return code
+    if out_png.exists():
+        return str(out_png.resolve())
+
+    # No PNG after waiting → treat as real failure
+    raise RuntimeError(
+        "VESTA command failed (no PNG created).\n"
+        f"Return code: {result.returncode}\n"
+        f"CMD:\n{' '.join(cmd)}\n\n"
+        f"STDOUT:\n{result.stdout or '(empty)'}\n\n"
+        f"STDERR:\n{result.stderr or '(empty)'}"
+    )
+
 
 
 

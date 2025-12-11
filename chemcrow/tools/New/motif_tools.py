@@ -3,6 +3,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
+from pathlib import Path
 
 from langchain.tools import BaseTool
 from pymatgen.core import Structure
@@ -401,7 +402,6 @@ def _summarise_comparison_for_llm(result: Dict, max_examples_per_motif: int = 3)
 # =========================
 # ChemCrow tools
 # =========================
-
 class MotifDecompositionTool(BaseTool):
     """
     ChemCrow tool for motif-level analysis of crystal structures in CIF format.
@@ -428,50 +428,130 @@ class MotifDecompositionTool(BaseTool):
         JSON dump of all motif instances and unassigned sites for post-hoc
         analysis outside the LLM.
 
-    The quality of the decomposition depends on the motif library you supply:
-    max_distance and neighbour species counts must be tuned to your chemistry.
+    Input contract for the agent:
+      - The tool expects a JSON string as input.
+      - Required key:
+          * "mode": one of "search", "all", or "from-list".
+      - You must provide EITHER:
+          * "cif_name": a CIF filename such as "07000N2_ddec.cif".
+            This will be resolved inside the default CIF directory configured
+            when the tool is constructed;
+        OR
+          * "cif_path": a full filesystem path to a CIF file.
+      - You must also provide EITHER:
+          * "motifs": a list of inline motif definitions, each in the
+            MotifPattern schema:
+                {
+                  "name": "C_sp2_like",
+                  "central_species": "C",
+                  "neighbor_species_counts": {"C": 2, "N": 1},
+                  "max_distance": 1.7
+                }
+            or any extension of that schema; extra keys are stored in "extra".
+        OR
+          * "motif_library_path": a path to a JSON file containing a list
+            of motifs in the same MotifPattern schema.
+            If "motif_library_path" is omitted, the tool will use the default
+            motif library path supplied when the tool instance was created.
+
+      - Optional keys:
+          * "motif_name": only used in "search" mode; the name of a single
+            motif in the library to search for.
+          * "allowed_motifs": only used in "from-list" mode; list of motif
+            names to restrict the decomposition to.
+          * "allow_overlap": boolean (default true), whether motif instances
+            are allowed to share sites.
+
+    Output:
+      - The tool writes a detailed JSON file to:
+            motif_results/<cif_stem>_motifs_<mode>.json
+        containing all motif instances and unassigned sites.
+      - It returns to the agent a compact JSON summary with:
+          * total_motif_instances
+          * motif_counts (by motif_name)
+          * unassigned_sites_count
+          * a small sample of unassigned site indices
+          * example_instances per motif (central_index, neighbour_indices)
+          * mode, cif_path, and full_result_path
     """
 
     name: str = "MotifDecomposition"
     description: str = (
-        "Decompose a CIF crystal structure into local coordination motifs using "
-        "a predefined motif library. The input MUST be a JSON string with: "
-        "'mode' ('search' | 'all' | 'from-list'), 'cif_path', and either "
-        "'motifs' (inline motif definitions) or 'motif_library_path' (JSON file). "
-        "The tool uses MinimumDistanceNN to detect neighbours and matches each site "
-        "to motifs defined by central species, neighbour species counts, and a "
-        "max distance cutoff. "
-        "Use this when you want a motif-level view of a structure: counts of each "
-        "motif type, example instances, and which sites are not covered by any motif. "
-        "It returns a compact JSON summary for the agent and writes the full result "
-        "to 'motif_results/<cif_stem>_motifs_<mode>.json' for detailed offline analysis."
+        "Decompose a CIF crystal structure into local coordination motifs using a predefined "
+        "motif library. The input MUST be a JSON string that includes 'mode' (one of "
+        "'search', 'all', or 'from-list'), and EITHER 'cif_name' (a CIF filename that will "
+        "be resolved inside the tool's default CIF directory) OR 'cif_path' (a full path "
+        "to a CIF file). You must also provide either inline 'motifs' (a list of motif "
+        "definitions in MotifPattern schema) or 'motif_library_path' (a JSON file with a "
+        "list of motifs). If 'motif_library_path' is omitted, the tool uses the default motif "
+        "library path configured when this tool was constructed. Optional keys: 'motif_name' "
+        "(for 'search' mode), 'allowed_motifs' (for 'from-list' mode), and 'allow_overlap' "
+        "(boolean, default true) to control whether motifs can share sites. The tool uses "
+        "pymatgen's MinimumDistanceNN to detect neighbours and matches each site to motifs "
+        "based on central species, neighbour species counts, and a max distance cutoff. It "
+        "returns a compact JSON summary for the agent and writes the full decomposition to "
+        "'motif_results/<cif_stem>_motifs_<mode>.json' for offline analysis."
     )
-    default_motif_library_path: Optional[str] = None
 
-    def __init__(self, default_motif_library_path: Optional[str] = None):
+    default_motif_library_path: Optional[str] = None
+    default_crystal_dir: Optional[Path] = None
+
+    def __init__(
+        self,
+        default_motif_library_path: Optional[str] = None,
+        default_crystal_dir: Optional[str | Path] = None,
+    ):
         super().__init__()
         self.default_motif_library_path = default_motif_library_path
+        self.default_crystal_dir = (
+            Path(default_crystal_dir) if default_crystal_dir is not None else None
+        )
+
     def _run(self, query: str) -> str:
+        """
+        Implementation of the motif decomposition tool.
+
+        It parses the JSON 'query', resolves the CIF either by 'cif_name'
+        inside 'default_crystal_dir' or by an explicit 'cif_path', loads the
+        motif library (either inline 'motifs' or from 'motif_library_path' or
+        'default_motif_library_path'), performs the decomposition, saves the
+        full result to disk, and returns a compact JSON summary.
+        """
         try:
             try:
                 params = json.loads(query)
             except json.JSONDecodeError:
                 return _motif_fail(
-                    "Invalid input. Expected a JSON string with keys like "
-                    "'mode', 'cif_path', and either 'motifs' or 'motif_library_path'."
+                    "Invalid input. Expected a JSON string with keys including 'mode' "
+                    "and either 'cif_name' or 'cif_path', plus either 'motifs' or "
+                    "'motif_library_path'."
                 )
 
             mode = params.get("mode", "all")
+
+            # Resolve CIF path from either 'cif_name' or 'cif_path'
+            cif_name = params.get("cif_name", None)
             cif_path = params.get("cif_path", None)
+
+            if cif_path is None and cif_name is not None:
+                if self.default_crystal_dir is None:
+                    return _motif_fail(
+                        "Got 'cif_name' but no default CIF directory is configured "
+                        "for MotifDecomposition."
+                    )
+                cif_path = str(self.default_crystal_dir / cif_name)
+
             if cif_path is None:
-                return _motif_fail("Missing required key 'cif_path' in input JSON.")
+                return _motif_fail(
+                    "Missing CIF input: provide either 'cif_name' or 'cif_path' in the JSON."
+                )
 
             motif_defs = params.get("motifs", None)
-            motif_library_path = params.get(
-                "motif_library_path",
-                self.default_motif_library_path,
-            )
+            motif_library_path = params.get("motif_library_path", None)
             allow_overlap = params.get("allow_overlap", True)
+
+            if motif_library_path is None:
+                motif_library_path = self.default_motif_library_path
 
             try:
                 motif_library = _load_motif_library(
@@ -480,8 +560,8 @@ class MotifDecompositionTool(BaseTool):
                 )
             except Exception as e:
                 return _motif_fail(
-                    f"Error loading motif library (check 'motifs' or "
-                    f"'motif_library_path'): {type(e).__name__}"
+                    f"Error loading motif library (check 'motifs' or 'motif_library_path' "
+                    f"or the tool's default motif library): {type(e).__name__}"
                 )
 
             try:
@@ -491,7 +571,7 @@ class MotifDecompositionTool(BaseTool):
                     f"Error reading CIF file '{cif_path}': {type(e).__name__}"
                 )
 
-            # Build full internal result
+            # Build full internal result depending on mode
             if mode == "search":
                 motif_name = params.get("motif_name", None)
                 if not motif_name:
@@ -505,7 +585,7 @@ class MotifDecompositionTool(BaseTool):
                         f"Motif '{motif_name}' not found in motif library."
                     )
                 occs = find_motif_occurrences(structure, pattern)
-                full_result = {
+                full_result: Dict[str, Any] = {
                     "mode": "search",
                     "motif_name": motif_name,
                     "motifs": occs,
@@ -554,7 +634,7 @@ class MotifDecompositionTool(BaseTool):
 
             # Build small summary for the LLM
             summary_core = _summarise_decomposition_for_llm(full_result)
-            summary = {
+            summary: Dict[str, Any] = {
                 "mode": mode,
                 "cif_path": cif_path,
                 "full_result_path": str(out_path),
@@ -564,11 +644,12 @@ class MotifDecompositionTool(BaseTool):
             return json.dumps(summary, indent=2, default=_json_default)
 
         except Exception as e:
-            # Absolute last-resort guard: no stack trace, just a short tag + type
             return _motif_fail(
-                f"Unexpected tool-level error in MotifDecomposition: "
-                f"{type(e).__name__}"
+                f"Unexpected tool-level error in MotifDecomposition: {type(e).__name__}"
             )
+
+    async def _arun(self, query: str) -> str:
+        raise NotImplementedError("MotifDecompositionTool does not support async.")
 
 
 
@@ -587,63 +668,101 @@ class MotifComparisonTool(BaseTool):
       - Saves a detailed JSON containing the full decompositions and per-motif
         instance data.
 
-    Why this is useful:
-      - It gives a chemically meaningful comparison that goes beyond simple
-        formula or cell parameters: you can see how two COFs/MOFs differ in
-        local building blocks.
-      - Helpful for "is this COF basically the same motif-wise as that one?",
-        clustering, or analysing structure–property differences in terms of
-        local environments rather than only global descriptors.
+    This gives a chemically meaningful comparison that goes beyond simple
+    formula or cell parameters: you can see how two COFs/MOFs differ in local
+    building blocks and coordination environments.
     """
 
     name: str = "MotifComparison"
     description: str = (
-        "Compare the motif content of two CIF structures using a shared motif "
-        "library. Input MUST be a JSON string with 'cif_path_1', 'cif_path_2', "
-        "and either 'motifs' or 'motif_library_path'. Optional keys: "
-        "'allowed_motifs' to restrict to a subset and 'allow_overlap' to control "
-        "whether motifs can share sites. "
-        "The tool decomposes both structures into motif instances, then reports: "
-        "(i) a summary of motif counts in each structure, "
-        "(ii) motifs shared by both (with counts), and "
-        "(iii) motif types unique to each. "
-        "Use this when you want to answer questions like 'how do these two COFs "
-        "differ in terms of local building blocks?' rather than just comparing "
-        "formulae or bulk descriptors. The full comparison is saved to "
-        "'motif_results/compare_<name1>_vs_<name2>.json' for deeper inspection."
+        "Compare the motif content of two CIF structures using a shared motif library. "
+        "The input MUST be a JSON string that provides EITHER 'cif_name_1' and 'cif_name_2' "
+        "(CIF filenames that will be resolved inside the tool's default CIF directory) OR "
+        "'cif_path_1' and 'cif_path_2' (full filesystem paths to CIF files). You must also "
+        "provide either inline 'motifs' (a list of motif definitions in MotifPattern schema) "
+        "or 'motif_library_path' (a JSON file with a list of motifs). If 'motif_library_path' "
+        "is omitted, the tool uses the default motif library path configured when this tool "
+        "was constructed. Optional keys: 'allowed_motifs' (list of motif names to restrict "
+        "the comparison to) and 'allow_overlap' (boolean, default true) controlling whether "
+        "motif instances in each structure are allowed to share sites. The tool decomposes "
+        "both structures into motif instances, identifies motifs shared between them and "
+        "motifs unique to each, writes a detailed JSON comparison to "
+        "'motif_results/compare_<name1>_vs_<name2>.json', and returns a compact summary "
+        "to the agent listing motif counts, shared motif names, and motif types unique to "
+        "each structure."
     )
-    
-    default_motif_library_path: Optional[str] = None
 
-    def __init__(self, default_motif_library_path: Optional[str] = None):
+    default_motif_library_path: Optional[str] = None
+    default_crystal_dir: Optional[Path] = None
+
+    def __init__(
+        self,
+        default_motif_library_path: Optional[str] = None,
+        default_crystal_dir: Optional[str | Path] = None,
+    ):
         super().__init__()
         self.default_motif_library_path = default_motif_library_path
+        self.default_crystal_dir = (
+            Path(default_crystal_dir) if default_crystal_dir is not None else None
+        )
 
     def _run(self, query: str) -> str:
+        """
+        Implementation of the motif comparison tool.
+
+        It parses the JSON 'query', resolves the two CIFs either by names
+        inside 'default_crystal_dir' or by explicit paths, loads the motif
+        library, performs motif decomposition on both structures, compares the
+        motif content, saves the full comparison JSON to disk, and returns a
+        compact summary for the agent.
+        """
         try:
             try:
                 params = json.loads(query)
             except json.JSONDecodeError:
                 return _motif_fail(
-                    "Invalid input. Expected a JSON string with keys like "
-                    "'cif_path_1', 'cif_path_2', and either 'motifs' or "
-                    "'motif_library_path'."
+                    "Invalid input. Expected a JSON string with keys including "
+                    "'cif_name_1'/'cif_name_2' or 'cif_path_1'/'cif_path_2', and "
+                    "either 'motifs' or 'motif_library_path'."
                 )
 
+            # Resolve CIF paths from names or paths
+            cif_name_1 = params.get("cif_name_1", None)
+            cif_name_2 = params.get("cif_name_2", None)
             cif_path_1 = params.get("cif_path_1", None)
             cif_path_2 = params.get("cif_path_2", None)
+
+            base_dir = self.default_crystal_dir
+
+            if cif_path_1 is None and cif_name_1 is not None:
+                if base_dir is None:
+                    return _motif_fail(
+                        "Got 'cif_name_1' but no default CIF directory is configured "
+                        "for MotifComparison."
+                    )
+                cif_path_1 = str(base_dir / cif_name_1)
+
+            if cif_path_2 is None and cif_name_2 is not None:
+                if base_dir is None:
+                    return _motif_fail(
+                        "Got 'cif_name_2' but no default CIF directory is configured "
+                        "for MotifComparison."
+                    )
+                cif_path_2 = str(base_dir / cif_name_2)
+
             if not cif_path_1 or not cif_path_2:
                 return _motif_fail(
-                    "Both 'cif_path_1' and 'cif_path_2' are required."
+                    "You must provide either 'cif_path_1' and 'cif_path_2' or "
+                    "'cif_name_1' and 'cif_name_2' in the JSON input."
                 )
 
             motif_defs = params.get("motifs", None)
-            motif_library_path = params.get(
-                "motif_library_path",
-                self.default_motif_library_path,
-            )
+            motif_library_path = params.get("motif_library_path", None)
             allowed_motifs = params.get("allowed_motifs", None)
             allow_overlap = params.get("allow_overlap", True)
+
+            if motif_library_path is None:
+                motif_library_path = self.default_motif_library_path
 
             try:
                 motif_library = _load_motif_library(
@@ -652,8 +771,8 @@ class MotifComparisonTool(BaseTool):
                 )
             except Exception as e:
                 return _motif_fail(
-                    f"Error loading motif library (check 'motifs' or "
-                    f"'motif_library_path'): {type(e).__name__}"
+                    f"Error loading motif library (check 'motifs' or 'motif_library_path' "
+                    f"or the tool's default motif library): {type(e).__name__}"
                 )
 
             try:
@@ -696,7 +815,7 @@ class MotifComparisonTool(BaseTool):
 
             # Small summary for LLM
             summary_core = _summarise_comparison_for_llm(full_result)
-            summary = {
+            summary: Dict[str, Any] = {
                 "cif_path_1": cif_path_1,
                 "cif_path_2": cif_path_2,
                 "full_result_path": str(out_path),
@@ -707,6 +826,8 @@ class MotifComparisonTool(BaseTool):
 
         except Exception as e:
             return _motif_fail(
-                f"Unexpected tool-level error in MotifComparison: "
-                f"{type(e).__name__}"
+                f"Unexpected tool-level error in MotifComparison: {type(e).__name__}"
             )
+
+    async def _arun(self, query: str) -> str:
+        raise NotImplementedError("MotifComparisonTool does not support async.")
