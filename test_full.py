@@ -239,7 +239,7 @@ def main() -> None:
         - Use **InspectCSVDataset** exactly ONCE with the following JSON config
             string as input (do NOT modify this string):
 
-            {inspect_config_json}
+            {{inspect_config_json}}
 
         - If the call fails, retry ONCE. If still failing, describe what you *would*
             expect (based on assumptions) and continue.
@@ -265,7 +265,7 @@ def main() -> None:
         - Use **GenericBayesOpt1D** exactly ONCE with the following JSON config
             string as input (do NOT modify this string):
 
-            {generic_bo_config_json}
+            {{generic_bo_config_json}}
 
             This means:
             • csv_path = the COF CSV above.
@@ -301,7 +301,7 @@ def main() -> None:
         --------------------------------------------------------------------
         - For each of the top 10 IDs from step (3):
             • Construct the CIF path as:
-                    {cif_dir_str}\\<ID value>
+                    {{cif_dir_str}}\\<ID value>
                 assuming the ID column matches the CIF filename (e.g.
                 "07000N2_ddec.cif").
             • Use **CheckCrystalFile** (optionally) to verify that the CIF exists.
@@ -310,12 +310,12 @@ def main() -> None:
             • Call **MotifDecomposition** at least once per *existing* CIF, with a
                 JSON config of the form:
 
-                {
+                {{
                     "mode": "all",
                     "cif_path": "<FULL_PATH_TO_CIF>",
                     "motif_library_path": "{motif_lib_str}",
                     "allow_overlap": true
-                }
+                }}
 
                 If a decomposition fails for a particular CIF (even after one retry
                 with a minimal config), skip that COF for motif statistics but
@@ -325,7 +325,7 @@ def main() -> None:
             • Load each successful motif JSON from the `full_result_path` returned
                 by MotifDecomposition.
             • For each COF, construct a *set* of motif names, e.g.
-                    motifs_i = { m["motif_name"] for m in data["motifs"] }.
+                    motifs_i = {{ m["motif_name"] for m in data["motifs"] }}.
             • Build a frequency dictionary over the top-10 COFs:
                     freq[motif_name] = number of COFs in which that motif appears.
 
@@ -380,11 +380,11 @@ def main() -> None:
                     with open(p, "r", encoding="utf-8") as f:
                         data = json.load(f)
                     # Each file has a list under "motifs"; each entry has "motif_name"
-                    names = {m["motif_name"] for m in data["motifs"]}
+                    names = {{m["motif_name"] for m in data["motifs"]}}
                     per_cof_motif_sets.append(names)
 
                 # Build frequency dict: in how many COFs does each motif appear?
-                freq = {}
+                freq = {{}}
                 for names in per_cof_motif_sets:
                     for name in names:
                         freq[name] = freq.get(name, 0) + 1
