@@ -110,7 +110,7 @@ def _throttled_arxiv_get(params: dict) -> requests.Response:
 
 def _arxiv_api_query(
     search: str,
-    max_results: int = 20,
+    max_results: int = 5,
 ) -> list[dict]:
     """
     Call the arXiv export API directly and parse results.
@@ -178,7 +178,7 @@ def _arxiv_api_query(
 def arxiv_scraper(
     search: str,
     pdir: str = "arxiv_query",
-    max_results: int = 20,
+    max_results: int = 5,
 ) -> dict:
     """
     Use the raw arXiv API to find up to max_results papers matching `search`,
@@ -230,7 +230,7 @@ def arxiv_scraper(
 
 
 # ------------ LLM wrapper functions (ChemCrow-style) ------------ #
-def arxiv_paper_search(llm, query, max_results=20):
+def arxiv_paper_search(llm, query, max_results=5):
     """
     Use an LLM to compress the user query to a short arXiv search string,
     then run an arXiv search and download the PDFs.
@@ -284,7 +284,7 @@ def arxiv2result_llm(
     k: int = 5,
     max_sources: int = 2,
     openai_api_key: str = None,
-    max_results: int = 20,
+    max_results: int = 5,
 ):
     """
     Failure-aware ArXiv-based QA:
@@ -400,13 +400,13 @@ class Arxiv2ResultLLM(BaseTool):
     
     llm: BaseLanguageModel = None
     openai_api_key: str = None
-    max_results: int = 20
+    max_results: int = 5
 
     def __init__(
         self,
         llm: BaseLanguageModel,
         openai_api_key: str = None,
-        max_results: int = 20,
+        max_results: int = 5,
     ):
         super().__init__()
         self.llm = llm

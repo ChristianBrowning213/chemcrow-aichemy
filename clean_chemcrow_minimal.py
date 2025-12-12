@@ -9,14 +9,13 @@ from langchain.chat_models import ChatOpenAI
 from langchain.tools import BaseTool
 import json
 
-
 # === IMPORT YOUR CUSTOM TOOLS FROM tools/New ===
 from chemcrow.tools.New.Arxiv2ResultLLM import Arxiv2ResultLLM
 from chemcrow.tools.New.motif_tools import MotifDecompositionTool, MotifComparisonTool
 from chemcrow.tools.New.VastraVisualise import VastraVisualise
 from chemcrow.tools.New.cof_multiobjective_bo import COFMultiObjectiveBO  # <-- NEW
 from chemcrow.tools.New.csv_inspector import InspectCSVDataset
-
+from chemcrow.tools.New.generic_bo_tool import GenericBayesOpt1D  # <-- NEW
 
 
 # === HARD-CODED PATHS FOR YOUR SETUP ===
@@ -35,7 +34,6 @@ TARGET_CIF = Path(
 DEFAULT_MOTIF_LIB = Path(r"chemcrow\tools\New\motifs_cof_from_library.json")
 
 os.environ.setdefault("VESTA_EXE", str(DEFAULT_VESTA))
-
 
 
 class CheckCrystalFileTool(BaseTool):
@@ -83,7 +81,9 @@ class CheckCrystalFileTool(BaseTool):
     async def _arun(self, query: str) -> str:
         raise NotImplementedError("This tool does not support async.")
 
+
 def build_clean_chemcrow():
+    # LLM used by custom tools (Arxiv, BO, etc.)
     tools_llm = ChatOpenAI(
         model_name=os.environ.get("CHEMCROW_TOOLS_MODEL", "gpt-4.1-mini"),
         temperature=0,
@@ -94,6 +94,7 @@ def build_clean_chemcrow():
         "SEMANTIC_SCHOLAR_API_KEY": os.getenv("SEMANTIC_SCHOLAR_API_KEY", ""),
     }
 
+    # Base ChemCrow tools (Python_REPL, Wikipedia, etc.)
     all_tools = make_tools(tools_llm, api_keys=api_keys)
 
     allowed_stock = {
@@ -113,18 +114,18 @@ def build_clean_chemcrow():
     arxiv_tool = Arxiv2ResultLLM(
         llm=tools_llm,
         openai_api_key=openai_key,
-        max_results=20,
+        max_results=5,
     )
 
     # 2) Motif decomposition & comparison
     motif_tool = MotifDecompositionTool(
         default_motif_library_path=str(DEFAULT_MOTIF_LIB),
-        default_crystal_dir=DEFAULT_CRYSTAL_DIR,      # <-- NEW
+        default_crystal_dir=DEFAULT_CRYSTAL_DIR,
     )
 
     motif_compare_tool = MotifComparisonTool(
         default_motif_library_path=str(DEFAULT_MOTIF_LIB),
-        default_crystal_dir=DEFAULT_CRYSTAL_DIR,      # <-- NEW
+        default_crystal_dir=DEFAULT_CRYSTAL_DIR,
     )
 
     # 3) VESTA visualisation (CIF → PNG)
@@ -135,13 +136,17 @@ def build_clean_chemcrow():
         nogui=True,
     )
 
-    # 4) CIF directory listing tool
+    # 4) CIF existence checker
     check_cif_tool = CheckCrystalFileTool(crystals_dir=DEFAULT_CRYSTAL_DIR)
-    
+
+    # 5) Multi-objective COF BO
     cof_bo_tool = COFMultiObjectiveBO(llm=tools_llm)
-    
+
     # 6) CSV introspection for BO / ML config
     csv_inspect_tool = InspectCSVDataset()
+
+    # 7) Generic 1D BO over a single CSV (autonomous, fuzzy goal resolution)
+    generic_bo_tool = GenericBayesOpt1D(llm=tools_llm)
 
     custom_tools: TList[BaseTool] = [
         arxiv_tool,
@@ -150,17 +155,20 @@ def build_clean_chemcrow():
         vastra_tool,
         check_cif_tool,
         cof_bo_tool,
-        csv_inspect_tool,  # <-- new
+        csv_inspect_tool,
+        generic_bo_tool,
     ]
-
     clean_tools.extend(custom_tools)
 
     print("\nLoaded tools in CLEAN ChemCrow:")
     for t in clean_tools:
         print(f"  - {t.name}")
 
+    # IMPORTANT: tell ChemCrow which model to use for the *agent*.
+    # ChemCrow.__init__ signature is (self, tools=None, model="gpt-4-0613", ...)
     chem_model = ChemCrow(
         tools=clean_tools,
+        model=os.environ.get("CHEMCROW_MODEL", "gpt-4.1"),
     )
 
     return chem_model

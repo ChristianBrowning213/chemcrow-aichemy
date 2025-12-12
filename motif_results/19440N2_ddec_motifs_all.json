@@ -1,0 +1,4314 @@
+{
+  "motifs": [
+    {
+      "motif_name": "CC1N1",
+      "central_index": 108,
+      "neighbor_indices": [
+        107,
+        273
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 112,
+      "neighbor_indices": [
+        113,
+        267
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 116,
+      "neighbor_indices": [
+        114,
+        269
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 122,
+      "neighbor_indices": [
+        120,
+        271
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 124,
+      "neighbor_indices": [
+        125,
+        271
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 130,
+      "neighbor_indices": [
+        129,
+        281
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 131,
+      "neighbor_indices": [
+        127,
+        280
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 132,
+      "neighbor_indices": [
+        123,
+        277
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 133,
+      "neighbor_indices": [
+        121,
+        276
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 134,
+      "neighbor_indices": [
+        115,
+        274
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 135,
+      "neighbor_indices": [
+        117,
+        275
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 136,
+      "neighbor_indices": [
+        110,
+        278
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 137,
+      "neighbor_indices": [
+        111,
+        279
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 144,
+      "neighbor_indices": [
+        153,
+        279
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 146,
+      "neighbor_indices": [
+        155,
+        277
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 153,
+      "neighbor_indices": [
+        144,
+        278
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 155,
+      "neighbor_indices": [
+        146,
+        276
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 166,
+      "neighbor_indices": [
+        175,
+        275
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 168,
+      "neighbor_indices": [
+        177,
+        280
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 175,
+      "neighbor_indices": [
+        166,
+        274
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 177,
+      "neighbor_indices": [
+        168,
+        281
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 189,
+      "neighbor_indices": [
+        186,
+        283
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 192,
+      "neighbor_indices": [
+        193,
+        283
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 196,
+      "neighbor_indices": [
+        194,
+        285
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 198,
+      "neighbor_indices": [
+        199,
+        285
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 202,
+      "neighbor_indices": [
+        200,
+        287
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 204,
+      "neighbor_indices": [
+        205,
+        287
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 208,
+      "neighbor_indices": [
+        206,
+        289
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 210,
+      "neighbor_indices": [
+        209,
+        297
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 211,
+      "neighbor_indices": [
+        207,
+        296
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 212,
+      "neighbor_indices": [
+        203,
+        293
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 213,
+      "neighbor_indices": [
+        201,
+        292
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 214,
+      "neighbor_indices": [
+        195,
+        290
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 215,
+      "neighbor_indices": [
+        197,
+        291
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 216,
+      "neighbor_indices": [
+        190,
+        294
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 217,
+      "neighbor_indices": [
+        191,
+        295
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 224,
+      "neighbor_indices": [
+        233,
+        295
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 226,
+      "neighbor_indices": [
+        235,
+        293
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 233,
+      "neighbor_indices": [
+        224,
+        294
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 235,
+      "neighbor_indices": [
+        226,
+        292
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 246,
+      "neighbor_indices": [
+        255,
+        291
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 248,
+      "neighbor_indices": [
+        257,
+        296
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 255,
+      "neighbor_indices": [
+        246,
+        290
+      ]
+    },
+    {
+      "motif_name": "CC1N1",
+      "central_index": 257,
+      "neighbor_indices": [
+        248,
+        297
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 108,
+      "neighbor_indices": [
+        107,
+        266,
+        273
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 112,
+      "neighbor_indices": [
+        113,
+        267,
+        268
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 116,
+      "neighbor_indices": [
+        114,
+        268,
+        269
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 122,
+      "neighbor_indices": [
+        120,
+        270,
+        271
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 124,
+      "neighbor_indices": [
+        125,
+        271,
+        272
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 189,
+      "neighbor_indices": [
+        186,
+        282,
+        283
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 192,
+      "neighbor_indices": [
+        193,
+        283,
+        284
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 196,
+      "neighbor_indices": [
+        194,
+        284,
+        285
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 198,
+      "neighbor_indices": [
+        199,
+        285,
+        286
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 202,
+      "neighbor_indices": [
+        200,
+        286,
+        287
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 204,
+      "neighbor_indices": [
+        205,
+        287,
+        288
+      ]
+    },
+    {
+      "motif_name": "CC1N2",
+      "central_index": 208,
+      "neighbor_indices": [
+        206,
+        288,
+        289
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 106,
+      "neighbor_indices": [
+        107,
+        110
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 107,
+      "neighbor_indices": [
+        106,
+        111
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 113,
+      "neighbor_indices": [
+        114,
+        115
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 114,
+      "neighbor_indices": [
+        113,
+        117
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 119,
+      "neighbor_indices": [
+        120,
+        121
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 120,
+      "neighbor_indices": [
+        119,
+        123
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 125,
+      "neighbor_indices": [
+        126,
+        127
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 126,
+      "neighbor_indices": [
+        125,
+        129
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 130,
+      "neighbor_indices": [
+        129,
+        131
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 131,
+      "neighbor_indices": [
+        127,
+        130
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 132,
+      "neighbor_indices": [
+        123,
+        133
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 133,
+      "neighbor_indices": [
+        121,
+        132
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 134,
+      "neighbor_indices": [
+        115,
+        135
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 135,
+      "neighbor_indices": [
+        117,
+        134
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 136,
+      "neighbor_indices": [
+        110,
+        137
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 137,
+      "neighbor_indices": [
+        111,
+        136
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 138,
+      "neighbor_indices": [
+        139,
+        143
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 139,
+      "neighbor_indices": [
+        138,
+        140
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 141,
+      "neighbor_indices": [
+        140,
+        142
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 143,
+      "neighbor_indices": [
+        138,
+        142
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 144,
+      "neighbor_indices": [
+        139,
+        153
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 146,
+      "neighbor_indices": [
+        143,
+        155
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 147,
+      "neighbor_indices": [
+        148,
+        152
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 148,
+      "neighbor_indices": [
+        147,
+        149
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 150,
+      "neighbor_indices": [
+        149,
+        151
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 152,
+      "neighbor_indices": [
+        147,
+        151
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 153,
+      "neighbor_indices": [
+        144,
+        148
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 155,
+      "neighbor_indices": [
+        146,
+        152
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 160,
+      "neighbor_indices": [
+        161,
+        165
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 161,
+      "neighbor_indices": [
+        160,
+        162
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 163,
+      "neighbor_indices": [
+        162,
+        164
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 165,
+      "neighbor_indices": [
+        160,
+        164
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 166,
+      "neighbor_indices": [
+        161,
+        175
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 167,
+      "neighbor_indices": [
+        163,
+        180
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 168,
+      "neighbor_indices": [
+        165,
+        177
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 169,
+      "neighbor_indices": [
+        170,
+        174
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 170,
+      "neighbor_indices": [
+        169,
+        171
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 172,
+      "neighbor_indices": [
+        171,
+        173
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 174,
+      "neighbor_indices": [
+        169,
+        173
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 175,
+      "neighbor_indices": [
+        166,
+        170
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 177,
+      "neighbor_indices": [
+        168,
+        174
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 186,
+      "neighbor_indices": [
+        187,
+        190
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 187,
+      "neighbor_indices": [
+        186,
+        191
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 193,
+      "neighbor_indices": [
+        194,
+        195
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 194,
+      "neighbor_indices": [
+        193,
+        197
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 199,
+      "neighbor_indices": [
+        200,
+        201
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 200,
+      "neighbor_indices": [
+        199,
+        203
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 205,
+      "neighbor_indices": [
+        206,
+        207
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 206,
+      "neighbor_indices": [
+        205,
+        209
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 210,
+      "neighbor_indices": [
+        209,
+        211
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 211,
+      "neighbor_indices": [
+        207,
+        210
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 212,
+      "neighbor_indices": [
+        203,
+        213
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 213,
+      "neighbor_indices": [
+        201,
+        212
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 214,
+      "neighbor_indices": [
+        195,
+        215
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 215,
+      "neighbor_indices": [
+        197,
+        214
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 216,
+      "neighbor_indices": [
+        190,
+        217
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 217,
+      "neighbor_indices": [
+        191,
+        216
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 218,
+      "neighbor_indices": [
+        219,
+        223
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 219,
+      "neighbor_indices": [
+        218,
+        220
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 221,
+      "neighbor_indices": [
+        220,
+        222
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 223,
+      "neighbor_indices": [
+        218,
+        222
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 224,
+      "neighbor_indices": [
+        219,
+        233
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 226,
+      "neighbor_indices": [
+        223,
+        235
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 227,
+      "neighbor_indices": [
+        228,
+        232
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 228,
+      "neighbor_indices": [
+        227,
+        229
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 230,
+      "neighbor_indices": [
+        229,
+        231
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 232,
+      "neighbor_indices": [
+        227,
+        231
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 233,
+      "neighbor_indices": [
+        224,
+        228
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 235,
+      "neighbor_indices": [
+        226,
+        232
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 240,
+      "neighbor_indices": [
+        241,
+        245
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 241,
+      "neighbor_indices": [
+        240,
+        242
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 243,
+      "neighbor_indices": [
+        242,
+        244
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 245,
+      "neighbor_indices": [
+        240,
+        244
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 246,
+      "neighbor_indices": [
+        241,
+        255
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 248,
+      "neighbor_indices": [
+        245,
+        257
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 249,
+      "neighbor_indices": [
+        250,
+        254
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 250,
+      "neighbor_indices": [
+        249,
+        251
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 252,
+      "neighbor_indices": [
+        251,
+        253
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 254,
+      "neighbor_indices": [
+        249,
+        253
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 255,
+      "neighbor_indices": [
+        246,
+        250
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 256,
+      "neighbor_indices": [
+        252,
+        261
+      ]
+    },
+    {
+      "motif_name": "CC2",
+      "central_index": 257,
+      "neighbor_indices": [
+        248,
+        254
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 130,
+      "neighbor_indices": [
+        129,
+        131,
+        281
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 131,
+      "neighbor_indices": [
+        127,
+        130,
+        280
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 132,
+      "neighbor_indices": [
+        123,
+        133,
+        277
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 133,
+      "neighbor_indices": [
+        121,
+        132,
+        276
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 134,
+      "neighbor_indices": [
+        115,
+        135,
+        274
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 135,
+      "neighbor_indices": [
+        117,
+        134,
+        275
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 136,
+      "neighbor_indices": [
+        110,
+        137,
+        278
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 137,
+      "neighbor_indices": [
+        111,
+        136,
+        279
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 144,
+      "neighbor_indices": [
+        139,
+        153,
+        279
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 146,
+      "neighbor_indices": [
+        143,
+        155,
+        277
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 153,
+      "neighbor_indices": [
+        144,
+        148,
+        278
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 155,
+      "neighbor_indices": [
+        146,
+        152,
+        276
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 166,
+      "neighbor_indices": [
+        161,
+        175,
+        275
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 168,
+      "neighbor_indices": [
+        165,
+        177,
+        280
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 175,
+      "neighbor_indices": [
+        166,
+        170,
+        274
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 177,
+      "neighbor_indices": [
+        168,
+        174,
+        281
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 210,
+      "neighbor_indices": [
+        209,
+        211,
+        297
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 211,
+      "neighbor_indices": [
+        207,
+        210,
+        296
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 212,
+      "neighbor_indices": [
+        203,
+        213,
+        293
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 213,
+      "neighbor_indices": [
+        201,
+        212,
+        292
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 214,
+      "neighbor_indices": [
+        195,
+        215,
+        290
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 215,
+      "neighbor_indices": [
+        197,
+        214,
+        291
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 216,
+      "neighbor_indices": [
+        190,
+        217,
+        294
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 217,
+      "neighbor_indices": [
+        191,
+        216,
+        295
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 224,
+      "neighbor_indices": [
+        219,
+        233,
+        295
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 226,
+      "neighbor_indices": [
+        223,
+        235,
+        293
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 233,
+      "neighbor_indices": [
+        224,
+        228,
+        294
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 235,
+      "neighbor_indices": [
+        226,
+        232,
+        292
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 246,
+      "neighbor_indices": [
+        241,
+        255,
+        291
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 248,
+      "neighbor_indices": [
+        245,
+        257,
+        296
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 255,
+      "neighbor_indices": [
+        246,
+        250,
+        290
+      ]
+    },
+    {
+      "motif_name": "CC2N1",
+      "central_index": 257,
+      "neighbor_indices": [
+        248,
+        254,
+        297
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 106,
+      "neighbor_indices": [
+        107,
+        109,
+        110
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 107,
+      "neighbor_indices": [
+        106,
+        108,
+        111
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 113,
+      "neighbor_indices": [
+        112,
+        114,
+        115
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 114,
+      "neighbor_indices": [
+        113,
+        116,
+        117
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 119,
+      "neighbor_indices": [
+        118,
+        120,
+        121
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 120,
+      "neighbor_indices": [
+        119,
+        122,
+        123
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 125,
+      "neighbor_indices": [
+        124,
+        126,
+        127
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 126,
+      "neighbor_indices": [
+        125,
+        128,
+        129
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 138,
+      "neighbor_indices": [
+        139,
+        143,
+        147
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 139,
+      "neighbor_indices": [
+        138,
+        140,
+        144
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 141,
+      "neighbor_indices": [
+        140,
+        142,
+        145
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 143,
+      "neighbor_indices": [
+        138,
+        142,
+        146
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 145,
+      "neighbor_indices": [
+        156,
+        157,
+        184
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 147,
+      "neighbor_indices": [
+        138,
+        148,
+        152
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 148,
+      "neighbor_indices": [
+        147,
+        149,
+        153
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 152,
+      "neighbor_indices": [
+        147,
+        151,
+        155
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 154,
+      "neighbor_indices": [
+        150,
+        158,
+        159
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 160,
+      "neighbor_indices": [
+        161,
+        165,
+        169
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 161,
+      "neighbor_indices": [
+        160,
+        162,
+        166
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 163,
+      "neighbor_indices": [
+        162,
+        164,
+        167
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 165,
+      "neighbor_indices": [
+        160,
+        164,
+        168
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 167,
+      "neighbor_indices": [
+        163,
+        179,
+        180
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 169,
+      "neighbor_indices": [
+        160,
+        170,
+        174
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 170,
+      "neighbor_indices": [
+        169,
+        171,
+        175
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 174,
+      "neighbor_indices": [
+        169,
+        173,
+        177
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 176,
+      "neighbor_indices": [
+        172,
+        181,
+        183
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 186,
+      "neighbor_indices": [
+        187,
+        189,
+        190
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 187,
+      "neighbor_indices": [
+        186,
+        188,
+        191
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 193,
+      "neighbor_indices": [
+        192,
+        194,
+        195
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 194,
+      "neighbor_indices": [
+        193,
+        196,
+        197
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 199,
+      "neighbor_indices": [
+        198,
+        200,
+        201
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 200,
+      "neighbor_indices": [
+        199,
+        202,
+        203
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 205,
+      "neighbor_indices": [
+        204,
+        206,
+        207
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 206,
+      "neighbor_indices": [
+        205,
+        208,
+        209
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 218,
+      "neighbor_indices": [
+        219,
+        223,
+        227
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 219,
+      "neighbor_indices": [
+        218,
+        220,
+        224
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 221,
+      "neighbor_indices": [
+        220,
+        222,
+        225
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 223,
+      "neighbor_indices": [
+        218,
+        222,
+        226
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 225,
+      "neighbor_indices": [
+        221,
+        236,
+        237
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 227,
+      "neighbor_indices": [
+        218,
+        228,
+        232
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 228,
+      "neighbor_indices": [
+        227,
+        229,
+        233
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 230,
+      "neighbor_indices": [
+        229,
+        231,
+        234
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 232,
+      "neighbor_indices": [
+        227,
+        231,
+        235
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 234,
+      "neighbor_indices": [
+        238,
+        239,
+        265
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 240,
+      "neighbor_indices": [
+        241,
+        245,
+        249
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 241,
+      "neighbor_indices": [
+        240,
+        242,
+        246
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 245,
+      "neighbor_indices": [
+        240,
+        244,
+        248
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 247,
+      "neighbor_indices": [
+        243,
+        259,
+        260
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 249,
+      "neighbor_indices": [
+        240,
+        250,
+        254
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 250,
+      "neighbor_indices": [
+        249,
+        251,
+        255
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 252,
+      "neighbor_indices": [
+        251,
+        253,
+        256
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 254,
+      "neighbor_indices": [
+        249,
+        253,
+        257
+      ]
+    },
+    {
+      "motif_name": "CC3",
+      "central_index": 256,
+      "neighbor_indices": [
+        252,
+        261,
+        263
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 145,
+      "neighbor_indices": [
+        141,
+        156,
+        157,
+        184
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 154,
+      "neighbor_indices": [
+        150,
+        158,
+        159,
+        185
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 167,
+      "neighbor_indices": [
+        163,
+        178,
+        179,
+        180
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 176,
+      "neighbor_indices": [
+        172,
+        181,
+        182,
+        183
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 225,
+      "neighbor_indices": [
+        221,
+        236,
+        237,
+        264
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 234,
+      "neighbor_indices": [
+        230,
+        238,
+        239,
+        265
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 247,
+      "neighbor_indices": [
+        243,
+        258,
+        259,
+        260
+      ]
+    },
+    {
+      "motif_name": "CC4",
+      "central_index": 256,
+      "neighbor_indices": [
+        252,
+        261,
+        262,
+        263
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 110,
+      "neighbor_indices": [
+        10
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 111,
+      "neighbor_indices": [
+        11
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 115,
+      "neighbor_indices": [
+        8
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 117,
+      "neighbor_indices": [
+        9
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 121,
+      "neighbor_indices": [
+        6
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 123,
+      "neighbor_indices": [
+        7
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 127,
+      "neighbor_indices": [
+        4
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 129,
+      "neighbor_indices": [
+        5
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 140,
+      "neighbor_indices": [
+        12
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 142,
+      "neighbor_indices": [
+        13
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 149,
+      "neighbor_indices": [
+        14
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 151,
+      "neighbor_indices": [
+        15
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 156,
+      "neighbor_indices": [
+        17
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 157,
+      "neighbor_indices": [
+        20
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 158,
+      "neighbor_indices": [
+        27
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 159,
+      "neighbor_indices": [
+        28
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 162,
+      "neighbor_indices": [
+        34
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 164,
+      "neighbor_indices": [
+        35
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 171,
+      "neighbor_indices": [
+        36
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 173,
+      "neighbor_indices": [
+        37
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 178,
+      "neighbor_indices": [
+        53
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 179,
+      "neighbor_indices": [
+        44
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 180,
+      "neighbor_indices": [
+        38
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 181,
+      "neighbor_indices": [
+        3
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 182,
+      "neighbor_indices": [
+        52
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 183,
+      "neighbor_indices": [
+        31
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 184,
+      "neighbor_indices": [
+        48
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 185,
+      "neighbor_indices": [
+        51
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 190,
+      "neighbor_indices": [
+        62
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 191,
+      "neighbor_indices": [
+        63
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 195,
+      "neighbor_indices": [
+        60
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 197,
+      "neighbor_indices": [
+        61
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 201,
+      "neighbor_indices": [
+        58
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 203,
+      "neighbor_indices": [
+        59
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 207,
+      "neighbor_indices": [
+        56
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 209,
+      "neighbor_indices": [
+        57
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 220,
+      "neighbor_indices": [
+        64
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 222,
+      "neighbor_indices": [
+        65
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 229,
+      "neighbor_indices": [
+        66
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 231,
+      "neighbor_indices": [
+        67
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 236,
+      "neighbor_indices": [
+        69
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 237,
+      "neighbor_indices": [
+        73
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 238,
+      "neighbor_indices": [
+        77
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 239,
+      "neighbor_indices": [
+        80
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 242,
+      "neighbor_indices": [
+        86
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 244,
+      "neighbor_indices": [
+        87
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 251,
+      "neighbor_indices": [
+        88
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 253,
+      "neighbor_indices": [
+        89
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 258,
+      "neighbor_indices": [
+        105
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 259,
+      "neighbor_indices": [
+        96
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 260,
+      "neighbor_indices": [
+        93
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 261,
+      "neighbor_indices": [
+        54
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 262,
+      "neighbor_indices": [
+        104
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 263,
+      "neighbor_indices": [
+        83
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 264,
+      "neighbor_indices": [
+        100
+      ]
+    },
+    {
+      "motif_name": "CH1",
+      "central_index": 265,
+      "neighbor_indices": [
+        103
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 156,
+      "neighbor_indices": [
+        16,
+        17
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 157,
+      "neighbor_indices": [
+        20,
+        21
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 158,
+      "neighbor_indices": [
+        26,
+        27
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 159,
+      "neighbor_indices": [
+        28,
+        29
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 178,
+      "neighbor_indices": [
+        39,
+        53
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 179,
+      "neighbor_indices": [
+        44,
+        45
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 180,
+      "neighbor_indices": [
+        38,
+        41
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 181,
+      "neighbor_indices": [
+        2,
+        3
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 182,
+      "neighbor_indices": [
+        23,
+        52
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 183,
+      "neighbor_indices": [
+        31,
+        33
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 184,
+      "neighbor_indices": [
+        46,
+        48
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 185,
+      "neighbor_indices": [
+        50,
+        51
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 236,
+      "neighbor_indices": [
+        68,
+        69
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 237,
+      "neighbor_indices": [
+        72,
+        73
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 238,
+      "neighbor_indices": [
+        77,
+        78
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 239,
+      "neighbor_indices": [
+        80,
+        81
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 258,
+      "neighbor_indices": [
+        91,
+        105
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 259,
+      "neighbor_indices": [
+        96,
+        97
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 260,
+      "neighbor_indices": [
+        90,
+        93
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 261,
+      "neighbor_indices": [
+        54,
+        94
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 262,
+      "neighbor_indices": [
+        75,
+        104
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 263,
+      "neighbor_indices": [
+        83,
+        85
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 264,
+      "neighbor_indices": [
+        98,
+        100
+      ]
+    },
+    {
+      "motif_name": "CH2",
+      "central_index": 265,
+      "neighbor_indices": [
+        102,
+        103
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 156,
+      "neighbor_indices": [
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 157,
+      "neighbor_indices": [
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 158,
+      "neighbor_indices": [
+        25,
+        26,
+        27
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 159,
+      "neighbor_indices": [
+        28,
+        29,
+        30
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 178,
+      "neighbor_indices": [
+        39,
+        40,
+        53
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 179,
+      "neighbor_indices": [
+        43,
+        44,
+        45
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 180,
+      "neighbor_indices": [
+        22,
+        38,
+        41
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 181,
+      "neighbor_indices": [
+        2,
+        3,
+        42
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 182,
+      "neighbor_indices": [
+        23,
+        24,
+        52
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 183,
+      "neighbor_indices": [
+        31,
+        32,
+        33
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 184,
+      "neighbor_indices": [
+        46,
+        47,
+        48
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 185,
+      "neighbor_indices": [
+        49,
+        50,
+        51
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 236,
+      "neighbor_indices": [
+        68,
+        69,
+        70
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 237,
+      "neighbor_indices": [
+        71,
+        72,
+        73
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 238,
+      "neighbor_indices": [
+        77,
+        78,
+        79
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 239,
+      "neighbor_indices": [
+        80,
+        81,
+        82
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 258,
+      "neighbor_indices": [
+        91,
+        92,
+        105
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 259,
+      "neighbor_indices": [
+        95,
+        96,
+        97
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 260,
+      "neighbor_indices": [
+        74,
+        90,
+        93
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 261,
+      "neighbor_indices": [
+        54,
+        55,
+        94
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 262,
+      "neighbor_indices": [
+        75,
+        76,
+        104
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 263,
+      "neighbor_indices": [
+        83,
+        84,
+        85
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 264,
+      "neighbor_indices": [
+        98,
+        99,
+        100
+      ]
+    },
+    {
+      "motif_name": "CH3",
+      "central_index": 265,
+      "neighbor_indices": [
+        101,
+        102,
+        103
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 108,
+      "neighbor_indices": [
+        273
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 109,
+      "neighbor_indices": [
+        267
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 112,
+      "neighbor_indices": [
+        267
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 116,
+      "neighbor_indices": [
+        269
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 118,
+      "neighbor_indices": [
+        269
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 122,
+      "neighbor_indices": [
+        271
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 124,
+      "neighbor_indices": [
+        271
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 128,
+      "neighbor_indices": [
+        273
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 130,
+      "neighbor_indices": [
+        281
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 131,
+      "neighbor_indices": [
+        280
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 132,
+      "neighbor_indices": [
+        277
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 133,
+      "neighbor_indices": [
+        276
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 134,
+      "neighbor_indices": [
+        274
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 135,
+      "neighbor_indices": [
+        275
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 136,
+      "neighbor_indices": [
+        278
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 137,
+      "neighbor_indices": [
+        279
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 144,
+      "neighbor_indices": [
+        279
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 146,
+      "neighbor_indices": [
+        277
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 153,
+      "neighbor_indices": [
+        278
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 155,
+      "neighbor_indices": [
+        276
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 166,
+      "neighbor_indices": [
+        275
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 168,
+      "neighbor_indices": [
+        280
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 175,
+      "neighbor_indices": [
+        274
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 177,
+      "neighbor_indices": [
+        281
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 188,
+      "neighbor_indices": [
+        289
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 189,
+      "neighbor_indices": [
+        283
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 192,
+      "neighbor_indices": [
+        283
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 196,
+      "neighbor_indices": [
+        285
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 198,
+      "neighbor_indices": [
+        285
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 202,
+      "neighbor_indices": [
+        287
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 204,
+      "neighbor_indices": [
+        287
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 208,
+      "neighbor_indices": [
+        289
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 210,
+      "neighbor_indices": [
+        297
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 211,
+      "neighbor_indices": [
+        296
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 212,
+      "neighbor_indices": [
+        293
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 213,
+      "neighbor_indices": [
+        292
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 214,
+      "neighbor_indices": [
+        290
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 215,
+      "neighbor_indices": [
+        291
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 216,
+      "neighbor_indices": [
+        294
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 217,
+      "neighbor_indices": [
+        295
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 224,
+      "neighbor_indices": [
+        295
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 226,
+      "neighbor_indices": [
+        293
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 233,
+      "neighbor_indices": [
+        294
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 235,
+      "neighbor_indices": [
+        292
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 246,
+      "neighbor_indices": [
+        291
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 248,
+      "neighbor_indices": [
+        296
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 255,
+      "neighbor_indices": [
+        290
+      ]
+    },
+    {
+      "motif_name": "CN1",
+      "central_index": 257,
+      "neighbor_indices": [
+        297
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 2,
+      "neighbor_indices": [
+        181
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 3,
+      "neighbor_indices": [
+        181
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 4,
+      "neighbor_indices": [
+        127
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 5,
+      "neighbor_indices": [
+        129
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 6,
+      "neighbor_indices": [
+        121
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 7,
+      "neighbor_indices": [
+        123
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 8,
+      "neighbor_indices": [
+        115
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 9,
+      "neighbor_indices": [
+        117
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 10,
+      "neighbor_indices": [
+        110
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 11,
+      "neighbor_indices": [
+        111
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 12,
+      "neighbor_indices": [
+        140
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 13,
+      "neighbor_indices": [
+        142
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 14,
+      "neighbor_indices": [
+        149
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 15,
+      "neighbor_indices": [
+        151
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 16,
+      "neighbor_indices": [
+        156
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 17,
+      "neighbor_indices": [
+        156
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 18,
+      "neighbor_indices": [
+        156
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 19,
+      "neighbor_indices": [
+        157
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 20,
+      "neighbor_indices": [
+        157
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 21,
+      "neighbor_indices": [
+        157
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 22,
+      "neighbor_indices": [
+        180
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 23,
+      "neighbor_indices": [
+        182
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 24,
+      "neighbor_indices": [
+        182
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 25,
+      "neighbor_indices": [
+        158
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 26,
+      "neighbor_indices": [
+        158
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 27,
+      "neighbor_indices": [
+        158
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 28,
+      "neighbor_indices": [
+        159
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 29,
+      "neighbor_indices": [
+        159
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 30,
+      "neighbor_indices": [
+        159
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 31,
+      "neighbor_indices": [
+        183
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 32,
+      "neighbor_indices": [
+        183
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 33,
+      "neighbor_indices": [
+        183
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 34,
+      "neighbor_indices": [
+        162
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 35,
+      "neighbor_indices": [
+        164
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 36,
+      "neighbor_indices": [
+        171
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 37,
+      "neighbor_indices": [
+        173
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 38,
+      "neighbor_indices": [
+        180
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 39,
+      "neighbor_indices": [
+        178
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 40,
+      "neighbor_indices": [
+        178
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 41,
+      "neighbor_indices": [
+        180
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 42,
+      "neighbor_indices": [
+        181
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 43,
+      "neighbor_indices": [
+        179
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 44,
+      "neighbor_indices": [
+        179
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 45,
+      "neighbor_indices": [
+        179
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 46,
+      "neighbor_indices": [
+        184
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 47,
+      "neighbor_indices": [
+        184
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 48,
+      "neighbor_indices": [
+        184
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 49,
+      "neighbor_indices": [
+        185
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 50,
+      "neighbor_indices": [
+        185
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 51,
+      "neighbor_indices": [
+        185
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 52,
+      "neighbor_indices": [
+        182
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 53,
+      "neighbor_indices": [
+        178
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 54,
+      "neighbor_indices": [
+        261
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 55,
+      "neighbor_indices": [
+        261
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 56,
+      "neighbor_indices": [
+        207
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 57,
+      "neighbor_indices": [
+        209
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 58,
+      "neighbor_indices": [
+        201
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 59,
+      "neighbor_indices": [
+        203
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 60,
+      "neighbor_indices": [
+        195
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 61,
+      "neighbor_indices": [
+        197
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 62,
+      "neighbor_indices": [
+        190
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 63,
+      "neighbor_indices": [
+        191
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 64,
+      "neighbor_indices": [
+        220
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 65,
+      "neighbor_indices": [
+        222
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 66,
+      "neighbor_indices": [
+        229
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 67,
+      "neighbor_indices": [
+        231
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 68,
+      "neighbor_indices": [
+        236
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 69,
+      "neighbor_indices": [
+        236
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 70,
+      "neighbor_indices": [
+        236
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 71,
+      "neighbor_indices": [
+        237
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 72,
+      "neighbor_indices": [
+        237
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 73,
+      "neighbor_indices": [
+        237
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 74,
+      "neighbor_indices": [
+        260
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 75,
+      "neighbor_indices": [
+        262
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 76,
+      "neighbor_indices": [
+        262
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 77,
+      "neighbor_indices": [
+        238
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 78,
+      "neighbor_indices": [
+        238
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 79,
+      "neighbor_indices": [
+        238
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 80,
+      "neighbor_indices": [
+        239
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 81,
+      "neighbor_indices": [
+        239
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 82,
+      "neighbor_indices": [
+        239
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 83,
+      "neighbor_indices": [
+        263
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 84,
+      "neighbor_indices": [
+        263
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 85,
+      "neighbor_indices": [
+        263
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 86,
+      "neighbor_indices": [
+        242
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 87,
+      "neighbor_indices": [
+        244
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 88,
+      "neighbor_indices": [
+        251
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 89,
+      "neighbor_indices": [
+        253
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 90,
+      "neighbor_indices": [
+        260
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 91,
+      "neighbor_indices": [
+        258
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 92,
+      "neighbor_indices": [
+        258
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 93,
+      "neighbor_indices": [
+        260
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 94,
+      "neighbor_indices": [
+        261
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 95,
+      "neighbor_indices": [
+        259
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 96,
+      "neighbor_indices": [
+        259
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 97,
+      "neighbor_indices": [
+        259
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 98,
+      "neighbor_indices": [
+        264
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 99,
+      "neighbor_indices": [
+        264
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 100,
+      "neighbor_indices": [
+        264
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 101,
+      "neighbor_indices": [
+        265
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 102,
+      "neighbor_indices": [
+        265
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 103,
+      "neighbor_indices": [
+        265
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 104,
+      "neighbor_indices": [
+        262
+      ]
+    },
+    {
+      "motif_name": "HC1",
+      "central_index": 105,
+      "neighbor_indices": [
+        258
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 266,
+      "neighbor_indices": [
+        108
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 267,
+      "neighbor_indices": [
+        109
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 268,
+      "neighbor_indices": [
+        116
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 269,
+      "neighbor_indices": [
+        118
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 270,
+      "neighbor_indices": [
+        122
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 271,
+      "neighbor_indices": [
+        124
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 272,
+      "neighbor_indices": [
+        124
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 273,
+      "neighbor_indices": [
+        128
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 274,
+      "neighbor_indices": [
+        175
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 275,
+      "neighbor_indices": [
+        166
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 276,
+      "neighbor_indices": [
+        155
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 277,
+      "neighbor_indices": [
+        146
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 278,
+      "neighbor_indices": [
+        153
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 279,
+      "neighbor_indices": [
+        144
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 280,
+      "neighbor_indices": [
+        168
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 281,
+      "neighbor_indices": [
+        177
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 282,
+      "neighbor_indices": [
+        189
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 283,
+      "neighbor_indices": [
+        192
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 284,
+      "neighbor_indices": [
+        192
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 285,
+      "neighbor_indices": [
+        196
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 286,
+      "neighbor_indices": [
+        198
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 287,
+      "neighbor_indices": [
+        202
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 288,
+      "neighbor_indices": [
+        208
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 289,
+      "neighbor_indices": [
+        188
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 290,
+      "neighbor_indices": [
+        255
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 291,
+      "neighbor_indices": [
+        246
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 292,
+      "neighbor_indices": [
+        235
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 293,
+      "neighbor_indices": [
+        226
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 294,
+      "neighbor_indices": [
+        233
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 295,
+      "neighbor_indices": [
+        224
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 296,
+      "neighbor_indices": [
+        248
+      ]
+    },
+    {
+      "motif_name": "NC1",
+      "central_index": 297,
+      "neighbor_indices": [
+        257
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 266,
+      "neighbor_indices": [
+        108,
+        109
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 267,
+      "neighbor_indices": [
+        109,
+        112
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 268,
+      "neighbor_indices": [
+        112,
+        116
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 269,
+      "neighbor_indices": [
+        116,
+        118
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 270,
+      "neighbor_indices": [
+        118,
+        122
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 271,
+      "neighbor_indices": [
+        122,
+        124
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 272,
+      "neighbor_indices": [
+        124,
+        128
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 273,
+      "neighbor_indices": [
+        108,
+        128
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 274,
+      "neighbor_indices": [
+        134,
+        175
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 275,
+      "neighbor_indices": [
+        135,
+        166
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 276,
+      "neighbor_indices": [
+        133,
+        155
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 277,
+      "neighbor_indices": [
+        132,
+        146
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 278,
+      "neighbor_indices": [
+        136,
+        153
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 279,
+      "neighbor_indices": [
+        137,
+        144
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 280,
+      "neighbor_indices": [
+        131,
+        168
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 281,
+      "neighbor_indices": [
+        130,
+        177
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 282,
+      "neighbor_indices": [
+        188,
+        189
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 283,
+      "neighbor_indices": [
+        189,
+        192
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 284,
+      "neighbor_indices": [
+        192,
+        196
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 285,
+      "neighbor_indices": [
+        196,
+        198
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 286,
+      "neighbor_indices": [
+        198,
+        202
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 287,
+      "neighbor_indices": [
+        202,
+        204
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 288,
+      "neighbor_indices": [
+        204,
+        208
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 289,
+      "neighbor_indices": [
+        188,
+        208
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 290,
+      "neighbor_indices": [
+        214,
+        255
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 291,
+      "neighbor_indices": [
+        215,
+        246
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 292,
+      "neighbor_indices": [
+        213,
+        235
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 293,
+      "neighbor_indices": [
+        212,
+        226
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 294,
+      "neighbor_indices": [
+        216,
+        233
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 295,
+      "neighbor_indices": [
+        217,
+        224
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 296,
+      "neighbor_indices": [
+        211,
+        248
+      ]
+    },
+    {
+      "motif_name": "NC2",
+      "central_index": 297,
+      "neighbor_indices": [
+        210,
+        257
+      ]
+    }
+  ],
+  "unassigned_sites": [
+    0,
+    1
+  ],
+  "mode": "all"
+}
